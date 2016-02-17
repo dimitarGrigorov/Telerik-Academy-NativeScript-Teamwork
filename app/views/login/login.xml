@@ -6,7 +6,7 @@
         <TextField text="{{ email }}" hint="Email Address" keyboardType="email" />
         <TextField secure="true" text="{{ password }}" hint="Password" />
 
-        <Button text="Sign in" tap="signIn" />
-        <Button text="Sign up" tap="register" />
+        <Button class="btn" text="Sign in" tap="signIn" />
+        <Button class="btn" text="Sign up" tap="register" />
     </StackLayout>
 </Page>
