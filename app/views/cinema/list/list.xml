@@ -12,13 +12,9 @@
             <ListView.itemTemplate>
                 <GridLayout class="list-item" columns="auto, *, auto">
                     <Image class="img" width="96" src="{{ url }}" row="0" col="0" />
-                    <StackLayout row="0" col="1">
-                        <Label text="{{ name }}" />
-                    </StackLayout>
-                    <GridLayout row="0" col="2">
-                        <Image horizontalAlignment="center" verticalAlignment="center" width="64" src="~/images/rating.png" />
-                        <Label class="rating" horizontalAlignment="center" verticalAlignment="center" text="{{ rating }}" />
-                    </GridLayout>
+                    <Label row="0" col="1" text="{{ name }}" />
+                    <Image row="0" col="2" horizontalAlignment="center" verticalAlignment="center" width="64" src="~/images/rating.png" />
+                    <Label row="0" col="2" class="rating" horizontalAlignment="center" verticalAlignment="center" text="{{ rating }}" />
                 </GridLayout>
             </ListView.itemTemplate>
         </ListView>
