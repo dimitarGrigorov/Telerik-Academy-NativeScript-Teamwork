@@ -14,7 +14,7 @@ exports.loaded = function(args) {
 exports.signIn = function() {
     user.login()
         .then(function() {
-            // frameModule.topmost().navigate("views/some/route");
+            frameModule.topmost().navigate("views/cinema/list/list");
         }).catch(function(error) {
             dialogsModule.alert({
                 message: error,
