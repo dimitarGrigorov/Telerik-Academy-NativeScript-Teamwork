@@ -8,7 +8,7 @@
         <Label row="1" col="0" text="Rating" horizontalAlignment="right" verticalAlignment="center" />
         <TextField id="rating" text="" row="1" col="1" />
         <Button class="btn" text="Filter" tap="filter" row="0" col="3" rowspan="2" />
-        <ListView class="list" row="2" colspan="3" items="{{ cinemaList }}">
+        <ListView class="list" row="2" colspan="3" items="{{ cinemaList }}" itemTap="viewDetails">
             <ListView.itemTemplate>
                 <GridLayout class="list-item" columns="auto, *, auto">
                     <Image class="img" width="96" src="{{ url }}" row="0" col="0" />

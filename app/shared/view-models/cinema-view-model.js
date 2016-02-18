@@ -9,28 +9,13 @@ function Cinema() {
     viewModel.getAll = function() {
         // TODO: use database...
         var array = [];
-        array.push({ rating: 5, name: "Arena Mladost", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
 
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
-        array.push({ rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
+        array.push({ id: 1, rating: 5, name: "Arena Mladost", url: "~/images/cinema.png" });
+        array.push({ id: 2, rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
+        array.push({ id: 3, rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
+        array.push({ id: 4, rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
+        array.push({ id: 5, rating: 5, name: "Arena Zapad", url: "~/images/cinema.png" });
+        
         return array;
     };
 
