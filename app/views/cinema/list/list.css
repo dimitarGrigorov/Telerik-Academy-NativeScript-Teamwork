@@ -7,6 +7,17 @@
 	
 }
 
+.list-item {
+}
+
+.img {
+	margin: 5;
+}
+
+.rating {
+	font-size: 20;
+}
+
 .btn {
 	background-color: #6441A5;
 	color: #FFFFFF;

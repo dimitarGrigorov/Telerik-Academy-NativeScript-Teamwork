@@ -10,11 +10,15 @@
         <Button class="btn" text="Filter" tap="filter" row="0" col="3" rowspan="2" />
         <ListView class="list" row="2" colspan="3" items="{{ cinemaList }}">
             <ListView.itemTemplate>
-                <GridLayout columns="auto, *">
-                    <Image width="96" src="{{ url }}" row="0" col="0" />
+                <GridLayout class="list-item" columns="auto, *, auto">
+                    <Image class="img" width="96" src="{{ url }}" row="0" col="0" />
                     <StackLayout row="0" col="1">
                         <Label text="{{ name }}" />
                     </StackLayout>
+                    <GridLayout row="0" col="2">
+                        <Image horizontalAlignment="center" verticalAlignment="center" width="64" src="~/images/rating.png" />
+                        <Label class="rating" horizontalAlignment="center" verticalAlignment="center" text="{{ rating }}" />
+                    </GridLayout>
                 </GridLayout>
             </ListView.itemTemplate>
         </ListView>
