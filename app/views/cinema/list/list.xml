@@ -2,7 +2,7 @@
     <Page.actionBar>
         <ActionBar title="Cinemas"></ActionBar>
     </Page.actionBar>
-    <GridLayout rows="auto,auto,auto,5*" columns="1*,2*,1*">
+    <GridLayout rows="auto,auto,auto,5*,auto" columns="1*,2*,1*">
         <Label row="0" col="0" text="Name" horizontalAlignment="right" verticalAlignment="center" />
         <TextField id="name" text="" row="0" col="1" />
         <Label row="1" col="0" text="Rating" horizontalAlignment="right" verticalAlignment="center" />
@@ -21,5 +21,7 @@
                 </GridLayout>
             </ListView.itemTemplate>
         </ListView>
+        <Button class="btn" text="Prev" tap="prev" row="4" col="0" />
+        <Button class="btn" text="Next" tap="next" row="4" col="2" />
     </GridLayout>
 </Page>
