@@ -5,8 +5,6 @@ var ImageModule = require("ui/image");
 var view = require("ui/core/view");
 var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
-var CinemaViewModel = require("../../../shared/view-models/cinema-view-model");
-var cinema = new CinemaViewModel();
 var cinemaService = require("../../../shared/services/cinema-service");
 var ObservableArray = require("data/observable-array").ObservableArray;
 
@@ -16,20 +14,16 @@ pageData.set("cinemaList", cinemaCollection);
 
 exports.navigatedTo = function(args) {
     page = args.object;
-    page.addCssFile("views/cinema/list/list.css");
     page.bindingContext = pageData;
 
-    cinemaService.getAll(0, 2, function(result) {
-        console.log(JSON.stringify(result));
+    cinemaService.getAll(0, 5, function(result) {
         cinemaCollection.push(result.value);
     });
 };
 
 exports.viewDetails = function(args) {
     // TODO: check if cinemaCollection has selected index
-    var cinemaId = cinemaCollection[args.index].id;
-
-    console.log(cinemaId);
+    var cinemaId = cinemaCollection.getItem(args.index).id;
 
     var navigationEntry = {
         moduleName: "views/cinema/details/details",
