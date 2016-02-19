@@ -30,6 +30,10 @@ function getAll(offset, limit, callback) {
                 type: firebase.QueryOrderByType.CHILD,
                 value: 'id'
             },
+            offset: {
+                type: firebase.QueryRangeType.START_AT,
+                value: offset
+            },
             limit: {
                 type: firebase.QueryLimitType.LAST,
                 value: limit

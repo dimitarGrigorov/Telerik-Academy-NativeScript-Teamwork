@@ -15,7 +15,7 @@ exports.navigatedTo = function(args) {
     page = args.object;
     page.addCssFile("views/cinema/list/list.css");
 
-    var data = cinemaService.getAll(0, 1, function (result) {
+    var data = cinemaService.getAll(1, 1, function (result) {
         console.log(JSON.stringify(result));
     });
 
