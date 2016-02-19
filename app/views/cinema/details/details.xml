@@ -1,17 +1,20 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
 	<StackLayout orientation="vertical">
 		<DockLayout>
-  			<Label dock="top" text="{{ name }}" class="header" />
+  			<Label id="header" dock="top" text="{{ cinemaData.name }}" />
 		</DockLayout>
-	    <Image class="detail-image" src="{{ url }}" />
+	    <Image class="details-image" src="{{ cinemaData.url }}" />
 		<GridLayout rows="auto" columns="auto, *, auto">
 			<Button text="Share" tap="share" row="0" col="0" />
 			<Button text="Rate" tap="" row="0" col="2" />
 		</GridLayout>
 
 		<Button text="Add a comment" tap="" />
+		<GridLayout rows="*" columns="*" visibility="{{ isLoading ? 'visible' : 'collapsed' }}">
+	  		<ActivityIndicator busy="{{ isLoading }}" row="0" col="0" />
+		</GridLayout>
 
-	  	<ListView items="{{ comments }}" itemTap="onItemTap">
+	  	<ListView items="{{ cinemaData.comments }}" itemTap="onItemTap">
 	  		<ListView.itemTemplate>
 			    <Label class="comment" text="{{ $value.text }}" textWrap="true" />
 	  		</ListView.itemTemplate>
