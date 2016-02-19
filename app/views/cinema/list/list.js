@@ -7,12 +7,17 @@ var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
 var CinemaViewModel = require("../../../shared/view-models/cinema-view-model");
 var cinema = new CinemaViewModel();
+var cinemaService = require("../../../shared/services/cinema-service");
 
 var cinemaCollection = [];
 
 exports.navigatedTo = function(args) {
     page = args.object;
     page.addCssFile("views/cinema/list/list.css");
+
+    var data = cinemaService.getAll(0, 1, function (result) {
+        console.log(JSON.stringify(result));
+    });
 
     cinemaCollection = cinema.getAll();
 
@@ -35,5 +40,5 @@ exports.viewDetails = function(args) {
         },
         animated: true
     };
-    //frameModule.topmost().navigate(navigationEntry);
+    frameModule.topmost().navigate(navigationEntry);
 };

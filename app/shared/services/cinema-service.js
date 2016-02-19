@@ -5,9 +5,8 @@ var cinemaRoute = '/cinemas';
 function getById(id, callback) {
     return firebase.query(
         callback || onQueryEvent,
-        cinemaRoute,
-        {
-           orderBy: {
+        cinemaRoute, {
+            orderBy: {
                 type: firebase.QueryOrderByType.CHILD,
                 value: 'id'
             },
@@ -23,6 +22,22 @@ function getById(id, callback) {
     )
 }
 
+function getAll(offset, limit, callback) {
+    return firebase.query(
+        callback || onQueryEvent,
+        cinemaRoute, {
+            orderBy: {
+                type: firebase.QueryOrderByType.CHILD,
+                value: 'id'
+            },
+            limit: {
+                type: firebase.QueryLimitType.LAST,
+                value: limit
+            }
+        }
+    )
+}
+
 function onQueryEvent(result) {
     if (!result.error) {
         console.log("Event type: " + result.type);
@@ -32,3 +47,4 @@ function onQueryEvent(result) {
 };
 
 exports.getById = getById;
+exports.getAll = getAll;
