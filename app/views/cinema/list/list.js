@@ -11,6 +11,7 @@ var ObservableArray = require("data/observable-array").ObservableArray;
 var cinemaCollection = new ObservableArray([]);
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
+pageData.set("isLoading", true);
 
 exports.navigatedTo = function(args) {
     page = args.object;
@@ -22,6 +23,7 @@ exports.navigatedTo = function(args) {
 
     cinemaService.getAll(0, 5, function(result) {
         cinemaCollection.push(result.value);
+        pageData.set("isLoading", false);
     });
 };
 
