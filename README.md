@@ -9,7 +9,7 @@ There are numerous applications for viewing and rating movies, but not enough fo
 Functionality of the application consists of:
 
 * Listing of most popular cinemas
-* Filtering results, by certain criterias
+* Filtering results by certain criterias
 * 1 to 5 rating system
 * Comment section
 * Multiple sharing options
