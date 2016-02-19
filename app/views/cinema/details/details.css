@@ -1,9 +1,16 @@
 Label {
-	background-color: red;
 	text-align: center;
 }
 
 .header {
 	height: 50;
 	font-size: 30;
+}
+
+.detail-image {
+	height: 150;
+}
+
+.comment {
+	padding: 10 0;
 }

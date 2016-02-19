@@ -1,15 +1,20 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
 	<StackLayout orientation="vertical">
-		<DockLayout stretchLastChild="false">
-  			<Label dock="top" text="Cinema header" class="header" />
+		<DockLayout>
+  			<Label dock="top" text="{{ name }}" class="header" />
 		</DockLayout>
-		<GridLayout columns="auto, *, auto" rows="auto, auto">
-		    <Label text="Cinema picture" row="0" col="0" colSpan="3" />
-		    <Button text="Share" tap="" row="1" col="0" />
-		    <Button text="Rate" tap="" row="1" col="2" />
+	    <Image class="detail-image" src="{{ url }}" />
+		<GridLayout rows="auto" columns="auto, *, auto">
+			<Button text="Share" tap="" row="0" col="0" />
+			<Button text="Rate" tap="" row="0" col="2" />
 		</GridLayout>
-	    <Label text="Comment #1" textWrap="true" row="3" col="0" colSpan="3" />
-	    <Label text="Comment #2" textWrap="true" row="3" col="1" colSpan="3" />
-	    <Label text="Comment #3" textWrap="true" row="3" col="2" colSpan="3" />
+
+		<Button text="Add a comment" tap="" />
+
+	  	<ListView items="{{ comments }}" itemTap="onItemTap">
+	  		<ListView.itemTemplate>
+			    <Label class="comment" text="{{ $value.text }}" textWrap="true" />
+	  		</ListView.itemTemplate>
+	  	</ListView>
 	</StackLayout>
 </Page>

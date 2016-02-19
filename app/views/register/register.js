@@ -3,12 +3,12 @@ var frameModule = require("ui/frame");
 var UserViewModel = require("../../shared/view-models/user-view-model");
 var user = new UserViewModel();
 
-exports.loaded = function(args) {
+function loaded(args) {
     var page = args.object;
     page.bindingContext = user;
 };
 
-exports.register = function() {
+function register() {
     user.register()
         .then(function() {
             dialogsModule
@@ -23,3 +23,6 @@ exports.register = function() {
             });
         });
 };
+
+exports.loaded = loaded;
+exports.register = register;
