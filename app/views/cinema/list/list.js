@@ -8,23 +8,21 @@ var Observable = require('data/observable').Observable;
 var CinemaViewModel = require("../../../shared/view-models/cinema-view-model");
 var cinema = new CinemaViewModel();
 var cinemaService = require("../../../shared/services/cinema-service");
+var ObservableArray = require("data/observable-array").ObservableArray;
 
-var cinemaCollection = [];
+var cinemaCollection = new ObservableArray([]);
+var pageData = new Observable();
+pageData.set("cinemaList", cinemaCollection);
 
 exports.navigatedTo = function(args) {
     page = args.object;
     page.addCssFile("views/cinema/list/list.css");
-
-    var data = cinemaService.getAll(1, 1, function (result) {
-        console.log(JSON.stringify(result));
-    });
-
-    cinemaCollection = cinema.getAll();
-
-    var pageData = new Observable();
-    pageData.set("cinemaList", cinemaCollection);
-
     page.bindingContext = pageData;
+
+    cinemaService.getAll(0, 2, function(result) {
+        console.log(JSON.stringify(result));
+        cinemaCollection.push(result.value);
+    });
 };
 
 exports.viewDetails = function(args) {
