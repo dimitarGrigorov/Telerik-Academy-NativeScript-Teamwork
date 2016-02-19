@@ -16,6 +16,10 @@ exports.navigatedTo = function(args) {
     page = args.object;
     page.bindingContext = pageData;
 
+    while (cinemaCollection.length) {
+        cinemaCollection.pop();
+    }
+
     cinemaService.getAll(0, 5, function(result) {
         cinemaCollection.push(result.value);
     });
