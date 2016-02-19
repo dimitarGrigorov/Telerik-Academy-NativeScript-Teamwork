@@ -1,23 +1,24 @@
 {
-	"name": "ta-ns-teamwork",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
-	"license": "MIT",
-	"dependencies": {
-		"lodash": "^4.4.0",
-		"nativescript-plugin-firebase": "^2.0.0",
-		"tns-core-modules": "1.5.2"
-	},
-	"devDependencies": {},
-	"nativescript": {
-		"id": "org.nativescript.tansteamwork",
-		"tns-android": {
-			"version": "1.5.1"
-		}
-	}
+  "name": "ta-ns-teamwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.4.0",
+    "nativescript-plugin-firebase": "^2.0.0",
+    "nativescript-social-share": "^1.1.2",
+    "tns-core-modules": "1.5.2"
+  },
+  "devDependencies": {},
+  "nativescript": {
+    "id": "org.nativescript.tansteamwork",
+    "tns-android": {
+      "version": "1.5.1"
+    }
+  }
 }
