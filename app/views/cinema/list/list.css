@@ -4,7 +4,8 @@
 }
 
 .list {
-	
+	margin: 5;
+    opacity: 0;
 }
 
 .list-item {

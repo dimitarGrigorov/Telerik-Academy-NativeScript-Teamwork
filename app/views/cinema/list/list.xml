@@ -9,7 +9,7 @@
         <TextField id="rating" text="" row="1" col="1" />
         <Button class="btn" text="Filter" tap="filter" row="0" col="3" rowspan="2" />
         <ActivityIndicator row="2" busy="{{ isLoading }}" rowSpan="2" colSpan="3" horizontalAlignment="center" verticalAlignment="center" />
-        <ListView class="list" row="3" colspan="3" items="{{ cinemaList }}" itemTap="viewDetails">
+        <ListView id="cinema-list" class="list" row="3" colspan="3" items="{{ cinemaList }}" itemTap="viewDetails">
             <ListView.itemTemplate>
                 <GridLayout class="list-item" columns="auto,*,auto,auto">
                     <Image class="img" width="96" src="{{ url }}" row="0" col="0" />

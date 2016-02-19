@@ -7,8 +7,10 @@ var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
 var cinemaService = require("../../../shared/services/cinema-service");
 var ObservableArray = require("data/observable-array").ObservableArray;
+var loadash = require("lodash");
 
 var cinemaCollection = new ObservableArray([]);
+
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
 pageData.set("isLoading", true);
@@ -17,18 +19,36 @@ exports.navigatedTo = function(args) {
     page = args.object;
     page.bindingContext = pageData;
 
+    var listView = page.getViewById("cinema-list");
+
     while (cinemaCollection.length) {
         cinemaCollection.pop();
     }
 
     cinemaService.getAll(0, 5, function(result) {
-        cinemaCollection.push(result.value);
+        var totalRating = loadash.reduce(result.value.rating, function(sum, n) {
+            return sum + n;
+        }, 0);
+        var averageRating = totalRating / result.value.rating.length;
+        var data = {
+            name: result.value.name,
+            rating: averageRating,
+            comments: result.value.comments,
+            id: result.value.id,
+            url: result.value.url
+        }
+        cinemaCollection.push(data);
+
         pageData.set("isLoading", false);
+
+        listView.animate({
+            opacity: 1,
+            duration: 1000
+        });
     });
 };
 
 exports.viewDetails = function(args) {
-    // TODO: check if cinemaCollection has selected index
     var cinemaId = cinemaCollection.getItem(args.index).id;
 
     var navigationEntry = {
@@ -38,5 +58,6 @@ exports.viewDetails = function(args) {
         },
         animated: true
     };
+
     frameModule.topmost().navigate(navigationEntry);
 };
