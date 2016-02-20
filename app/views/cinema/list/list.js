@@ -61,6 +61,10 @@ function load() {
                 opacity: 1,
                 duration: 1000
             });
+
+            listView.observe(gestures.GestureTypes.longPress, function(args) {
+                console.log(args);
+            });
         }, function(error) {
             pageData.set("isLoading", false);
 

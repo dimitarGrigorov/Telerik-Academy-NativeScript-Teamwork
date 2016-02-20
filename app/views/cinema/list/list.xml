@@ -4,7 +4,7 @@
             <ActionBar.titleView>
                 <GridLayout columns="3*,1*">
                     <Label class="page-title" col="0" text="Cinemas" minWidth="100" />
-                    <Image tap="showCinemaFilter" col="1" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" />
+                    <Image doubleTap="showCinemaFilter" col="1" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" />
                 </GridLayout>
             </ActionBar.titleView>
         </ActionBar>
