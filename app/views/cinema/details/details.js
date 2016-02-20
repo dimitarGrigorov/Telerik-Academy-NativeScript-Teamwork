@@ -4,7 +4,11 @@ var view = require("ui/core/view");
 var ImageModule = require("ui/image");
 var Observable = require('data/observable').Observable;
 var cinemaService = require("../../../shared/services/cinema-service");
+var utils = require('../../../shared/utils');
+
 var socialShare = require("nativescript-social-share");
+
+var page;
 var pageData = new Observable();
 
 function share() {
@@ -25,17 +29,16 @@ function showCommentSection() {
         moduleName: 'views/cinema/comments/comments',
         context: {
             cinemaId: pageData.get('cinemaId'),
-            comments: pageData.get('cinemaData').comments
-        },
-        animated: true
+            cinemaKey: pageData.get('cinemaKey'),
+            comments: utils.getCollectionItems(pageData.get('cinemaData').comments)
+        }
     };
 
     frameModule.topmost().navigate(navigationEntry);
 }
 
 function onNavigatedTo(args) {
-	var page = args.object;
-
+	page = args.object;
 	pageData.set("isLoading", true);
 
 	view.getViewById(page, 'header').animate({
@@ -46,6 +49,7 @@ function onNavigatedTo(args) {
 	var data = cinemaService.getById(page.navigationContext.cinemaId, function (result) {
 		if (!result.error) {
 			pageData.set('cinemaId', page.navigationContext.cinemaId);
+			pageData.set('cinemaKey', page.navigationContext.key);
 			pageData.set('cinemaData', result.value);
 			pageData.set('isLoading', false);
 		}
