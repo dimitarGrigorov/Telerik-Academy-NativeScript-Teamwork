@@ -1,6 +1,6 @@
 var Everlive = require('../../libs/everlive.all.min');
 var everlive = require('../everlive');
-var endpoint = 'Comments';
+var endpoint = 'Ratings';
 
 function getAll() {
 	return everlive.data(endpoint).get();
@@ -16,7 +16,7 @@ function getAllByCinemaId(cinemaId) {
 }
 
 function create(data) {
-	return everlive.data(endpoint).create(data);
+	return everlive.data(endpoint).create(data)
 }
 
 exports.getAll = getAll;

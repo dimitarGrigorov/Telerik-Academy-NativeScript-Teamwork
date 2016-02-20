@@ -3,9 +3,7 @@ var frameModule = require("ui/frame");
 var view = require("ui/core/view");
 var ImageModule = require("ui/image");
 var Observable = require('data/observable').Observable;
-// var cinemaService = require("../../../shared/services/cinema-service");
-var utils = require('../../../shared/utils');
-var everlive = require("../../../shared/everlive"); // TODO: remove
+var cinemaService = require("../../../shared/services/cinema-service");
 var socialShare = require("nativescript-social-share");
 
 var page;
@@ -50,11 +48,10 @@ function onNavigatedTo(args) {
         duration: 1000
     });
 
-    // TODO: get item from cinema-service
-    everlive.data('Cinemas').getById(page.navigationContext.cinemaId)
-    	.then(function (data) {
+    cinemaService.getById(page.navigationContext.cinemaId)
+    	.then(function (response) {
 			pageData.set('cinemaId', page.navigationContext.cinemaId);
-			pageData.set('cinemaData', data.result);
+			pageData.set('cinemaData', response.result);
 			pageData.set('isLoading', false);
     	}, function (error) {
     		console.log('Error in details view: ' + error.message);
