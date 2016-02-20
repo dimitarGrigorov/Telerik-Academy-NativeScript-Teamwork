@@ -5,8 +5,8 @@ var ImageModule = require("ui/image");
 var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
 var ObservableArray = require("data/observable-array").ObservableArray;
-var loadash = require("lodash");
 var cinemaService = require("../../../shared/services/cinema-service");
+var utils = require("../../../shared/utils");
 
 var page;
 
@@ -18,21 +18,11 @@ pageData.set("showCinemaFilter", true);
 var pageNumber = 0;
 var pageSize = 5;
 
-function getCinemaAverageRating(cinemaRatings) {
-    var sum = loadash.reduce(cinemaRatings, function(sum, n) {
-        return sum + n;
-    }, 0);
-
-    var averageRating = Math.round(sum / cinemaRatings.length, 1);
-
-    return averageRating;
-}
-
 function getList(result) {
     var collection = [];
 
     for (var i = 0; i < result.length; i++) {
-        var averageRating = getCinemaAverageRating(result[i].rating);
+        var averageRating = utils.getAverage(result[i].rating);
 
         var data = {
             name: result[i].name,
