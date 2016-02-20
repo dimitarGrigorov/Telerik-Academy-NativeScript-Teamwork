@@ -1,4 +1,5 @@
 var dialogsModule = require("ui/dialogs");
+var connectivity = require("connectivity");
 var frameModule = require("ui/frame");
 var viewModule = require("ui/core/view");
 var UserViewModel = require("../../shared/view-models/user-view-model");
@@ -12,15 +13,24 @@ function loaded(args) {
 };
 
 function signIn() {
-    user.login()
-        .then(function() {
-            frameModule.topmost().navigate("views/cinema/list/list");
-        }, function(error) {
-            dialogsModule.alert({
-                message: error.message,
-                okButtonText: "OK"
+    var connectionType = connectivity.getConnectionType();
+
+    if (connectionType != connectivity.connectionType.none) {
+        user.login()
+            .then(function() {
+                frameModule.topmost().navigate("views/cinema/list/list");
+            }, function(error) {
+                dialogsModule.alert({
+                    message: error.message,
+                    okButtonText: "OK"
+                });
             });
+    } else {
+        dialogsModule.alert({
+            message: "Login requires an Internet connection!",
+            okButtonText: "OK"
         });
+    }
 };
 
 function register() {

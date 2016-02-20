@@ -1,6 +1,10 @@
 var view = require('ui/core/view');
 var geolocation = require("nativescript-geolocation");
 
+var locationModule = require("location");
+var LocationManager = require("location").LocationManager;
+var isEnabled = LocationManager.isEnabled();
+
 var pageData;
 
 function onNavigatedTo(args) {
@@ -9,20 +13,23 @@ function onNavigatedTo(args) {
 }
 
 function enableLocationTap(args) {
-if (!geolocation.isEnabled()) {
+
+    if (!geolocation.isEnabled()) {
         geolocation.enableLocationRequest();
     }
+}
 
-    var location = geolocation.getCurrentLocation({ desiredAccuracy: 3, updateDistance: 10, maximumAge: 20000, timeout: 20000 }).
-    then(function(loc) {
-        if (loc) {
-            console.log(JSON.stringify(loc));
-        }
-    }, function(e) {
-        console.log("Error: " + e.message);
+
+function getLocationTap(args) {
+
+    locationModule.getLocation({ maximumAge: 30000, timeout: 10000 }).then(function(location) {
+        console.log('Location received: ' + location);
+    }, function(error) {
+        console.log('Location error received: ' + error);
     });
 }
 
 
 exports.onNavigatedTo = onNavigatedTo;
 exports.enableLocationTap = enableLocationTap;
+exports.getLocationTap = getLocationTap;

@@ -4,5 +4,6 @@
     </Page.actionBar>
     <StackLayout>
         <Button text="Enable Location" tap="enableLocationTap"/>
+        <Button text="Get Location" tap="getLocationTap"/>
     </StackLayout>
 </Page>
