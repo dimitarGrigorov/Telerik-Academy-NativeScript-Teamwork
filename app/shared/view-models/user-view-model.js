@@ -2,12 +2,12 @@ var config = require("../../shared/config");
 var firebase = require("nativescript-plugin-firebase");
 var observableModule = require("data/observable");
 
-function User(info) {
-    info = info || {};
+function User(data) {
+    data = data || {};
 
     var viewModel = new observableModule.Observable({
-        email: info.email || "ns-testing@gmail.com",
-        password: info.password || "password"
+        email: data.email || "ns-testing@gmail.com",
+        password: data.password || "password"
     });
 
     viewModel.init = function() {

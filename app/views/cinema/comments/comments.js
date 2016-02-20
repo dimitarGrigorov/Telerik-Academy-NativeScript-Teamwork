@@ -1,11 +1,12 @@
-var Observable = require('data/observable').Observable;
+var view = require('ui/core/view');
+var CommentSection = require('../../../shared/view-models/comment-section-view-model');
 var pageData;
 
 function onNavigatedTo(args) {
 	var page = args.object;
 
-	pageData = new Observable(page.navigationContext);
-
+	pageData = new CommentSection(page.navigationContext);
+	
 	page.bindingContext = pageData;
 }
 
