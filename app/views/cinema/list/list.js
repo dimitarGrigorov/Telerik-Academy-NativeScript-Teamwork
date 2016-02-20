@@ -6,10 +6,7 @@ var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
 var ObservableArray = require("data/observable-array").ObservableArray;
 var loadash = require("lodash");
-var config = require("../../../shared/config");
-//var cinemaService = require("../../../shared/services/cinema-service");
-var Everlive = require('../../../libs/everlive.all.min');
-var el = new Everlive('gb85as3hebz4amck');
+var cinemaService = require("../../../shared/services/cinema-service");
 
 var page;
 
@@ -51,28 +48,6 @@ function getList(result) {
     return collection;
 }
 
-function getQuery(offset, limit, name) {
-    var name = name || null;
-
-    var data = el.data('Cinemas');
-
-    var query = new Everlive.Query();
-
-    if (name == null || name.length == 0) {
-        query
-            .skip(offset)
-            .take(limit);
-    } else {
-        query
-            .where()
-            .or()
-            .startsWith('name', name)
-            .endsWith('name', name);
-    }
-
-    return data.get(query);
-}
-
 function load() {
     pageData.set("isLoading", true);
 
@@ -81,33 +56,24 @@ function load() {
 
     var name = page.getViewById("name").text;
 
-    getQuery(offset, limit, name)
+    cinemaService.getCinemaList(offset, limit, name)
         .then(function(response) {
             pageData.set("isLoading", false);
 
-            if (true) {
-                var list = getList(response.result);
+            var list = getList(response.result);
 
-                cinemaCollection = list;
+            cinemaCollection = list;
 
-                pageData.set("cinemaList", cinemaCollection);
+            pageData.set("cinemaList", cinemaCollection);
 
-                var listView = page.getViewById("cinema-list");
-                listView.animate({
-                    opacity: 1,
-                    duration: 1000
-                });
-            } else {
-                pageNumber--;
-
-                dialogsModule.alert({
-                    message: "No more results to show!",
-                    okButtonText: "OK"
-                });
-            }
+            var listView = page.getViewById("cinema-list");
+            listView.animate({
+                opacity: 1,
+                duration: 1000
+            });
         }, function(error) {
             pageData.set("isLoading", false);
-            
+
             dialogsModule.alert({
                 message: "An error occured while trying to get the cinema list!",
                 okButtonText: "OK"
