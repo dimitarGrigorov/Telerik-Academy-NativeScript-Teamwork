@@ -2,7 +2,7 @@
     <Page.actionBar>
         <ActionBar title="Add New Cinema"></ActionBar>
     </Page.actionBar>
-    <GridLayout rows="auto, *" columns="*, *, *">
-        
-    </GridLayout>
+    <StackLayout>
+        <Button text="Enable Location" tap="enableLocationTap"/>
+    </StackLayout>
 </Page>
