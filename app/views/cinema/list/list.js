@@ -38,7 +38,7 @@ function getList(result) {
             name: result[i].name,
             rating: averageRating,
             comments: 5,
-            id: result[i].id,
+            id: result[i].Id,
             url: result[i].url
         };
 
@@ -91,7 +91,7 @@ exports.navigatedTo = function(args) {
 // Cinema
 
 exports.viewDetails = function(args) {
-    var cinema = cinemaCollection.indexOf(args.index);
+    var cinema = cinemaCollection[args.index];
 
     var id = cinema.id;
 
