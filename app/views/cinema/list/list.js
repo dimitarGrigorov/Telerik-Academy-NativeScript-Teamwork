@@ -7,8 +7,9 @@ var Observable = require('data/observable').Observable;
 var ObservableArray = require("data/observable-array").ObservableArray;
 var loadash = require("lodash");
 var config = require("../../../shared/config");
-var cinemaService = require("../../../shared/services/cinema-service");
-
+//var cinemaService = require("../../../shared/services/cinema-service");
+var Everlive = require('../../../libs/everlive.all.min');
+var el = new Everlive('gb85as3hebz4amck');
 var page;
 
 var cinemaCollection = new ObservableArray([]);
@@ -33,17 +34,18 @@ function getCinemaAverageRating(cinemaRatings) {
     return averageRating;
 }
 
-function parseCinemaResult(result) {
-    var data = {
-        name: result.value.name,
-        rating: getCinemaAverageRating(result.value.rating),
-        comments: Object.keys(result.value.comments).length,
-        id: result.value.id,
-        url: result.value.url,
-        key: result.key
-    }
-
-    return data;
+function getResult(result) {
+    result.forEach(function(item) {
+        var data = {
+            name: item.name,
+            rating: 5,
+            comments: 5,
+            id: item.id,
+            url: item.url
+        };
+        console.log(JSON.stringify(item));
+        cinemaCollection.push(data);
+    });
 }
 
 exports.navigatedTo = function(args) {
@@ -52,21 +54,22 @@ exports.navigatedTo = function(args) {
 
     pageData.set("isLoading", true);
 
-    emptyCollection();
+    var data = el.data('Cinemas');
+    var query = new Everlive.Query();
+    query.skip(0).take(1);
+    data.get(query)
+        .then(function(data) {
+            pageData.set("isLoading", false);
+            getResult(data.result);
+            var listView = page.getViewById("cinema-list");
+            listView.animate({
+                opacity: 1,
+                duration: 1000
+            });
+        }, function(error) {
 
-    cinemaService.getAll(function(result) {
-        var data = parseCinemaResult(result);
-
-        cinemaCollection.push(data);
-
-        pageData.set("isLoading", false);
-
-        var listView = page.getViewById("cinema-list");
-        listView.animate({
-            opacity: 1,
-            duration: 1000
         });
-    });
+
 };
 
 exports.viewDetails = function(args) {
@@ -94,11 +97,11 @@ exports.addCinema = function(args) {
 exports.filter = function(args) {
     pageData.set("isLoading", true);
 
-    var filter = page.getViewById("name");
+    var cinemaInput = page.getViewById("name");
 
     emptyCollection();
 
-    if (filter.text == "") {
+    if (cinemaInput.text == "") {
         cinemaService.getAll(function(result) {
             var data = parseCinemaResult(result);
 
@@ -114,7 +117,7 @@ exports.filter = function(args) {
             });
         });
     } else {
-        cinemaService.getByFilter(filter.text, function(result) {
+        cinemaService.getByFilter(cinemaInput.text, function(result) {
             var data = parseCinemaResult(result);
 
             cinemaCollection.push(data);
@@ -131,15 +134,14 @@ exports.filter = function(args) {
     }
 };
 
-exports.toggleCinemaFilterVisibility = function(args) {
+exports.hideCinemaFilter = function(args) {
     var direction = args.direction;
 
     switch (direction) {
         case 4:
+        case 1:
+        case 2:
             pageData.set("showCinemaFilter", false);
-            break;
-        case 8:
-            pageData.set("showCinemaFilter", true);
             break;
     }
 }
