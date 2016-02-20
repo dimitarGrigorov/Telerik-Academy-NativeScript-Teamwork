@@ -27,15 +27,20 @@ function onNavigatedTo(args) {
 }
 
 function submitComment() {
-	commentService.create({
-		from: 'User', // TODO: change this
-		cinemaId: pageData.get('cinemaId'),
-		text: pageData.get('commentToSubmit')
-	}).then(function () {
-		loadComments();
-	}, function (error) {
-		console.log('Error in submitting comment: ' + error);
-	});
+	var cinemaId = pageData.get('cinemaId');
+	var text = pageData.get('commentToSubmit');
+
+	if (text.length) {
+		commentService.create({
+			from: 'User', // TODO: change this
+			cinemaId: cinemaId,
+			text: text
+		}).then(function () {
+			loadComments();
+		}, function (error) {
+			console.log('Error in submitting comment: ' + error);
+		});
+	}
 
 	// hide keyboard
 	view.getViewById(page, 'comment-to-add').dismissSoftInput();
