@@ -7,7 +7,7 @@ var page;
 var pageData;
 
 function loadComments() {
-    commentService.getAll()
+    commentService.getAllByCinemaId(pageData.get('cinemaId'))
 		.then(function (data) {
 			pageData.set('comments', _.reverse(data.result));
 	    }, function (error) {

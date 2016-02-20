@@ -1,10 +1,11 @@
 var Everlive = require("../../libs/everlive.all.min");
-var wrapper = require("../../shared/everlive");
+var everlive = require("../../shared/everlive");
+var endpoint = 'Cinemas';
 
 function getCinemaList(offset, limit, name) {
     var name = name || null;
 
-    var data = wrapper.data('Cinemas');
+    var data = everlive.data(endpoint);
 
     var query = new Everlive.Query();
 

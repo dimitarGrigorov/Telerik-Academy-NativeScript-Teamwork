@@ -50,15 +50,10 @@ function onNavigatedTo(args) {
         duration: 1000
     });
 
-	// TODO: get from list view
-	var navigationContext = {
-		cinemaId: '56dfaa50-d7fb-11e5-a249-190939b8d860'
-	};
-
     // TODO: get item from cinema-service
-    everlive.data('Cinemas').getById(navigationContext.cinemaId)
+    everlive.data('Cinemas').getById(page.navigationContext.cinemaId)
     	.then(function (data) {
-			pageData.set('cinemaId', navigationContext.cinemaId);
+			pageData.set('cinemaId', page.navigationContext.cinemaId);
 			pageData.set('cinemaData', data.result);
 			pageData.set('isLoading', false);
     	}, function (error) {
