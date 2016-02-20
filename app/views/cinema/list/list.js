@@ -14,6 +14,14 @@ var page;
 var cinemaCollection = new ObservableArray([]);
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
+pageData.set("showCinemaFilter", true);
+
+
+function emptyCollection() {
+    while (cinemaCollection.length) {
+        cinemaCollection.pop();
+    }
+}
 
 function getCinemaAverageRating(cinemaRatings) {
     var sum = loadash.reduce(cinemaRatings, function(sum, n) {
@@ -25,25 +33,29 @@ function getCinemaAverageRating(cinemaRatings) {
     return averageRating;
 }
 
+function parseCinemaResult(result) {
+    var data = {
+        name: result.value.name,
+        rating: getCinemaAverageRating(result.value.rating),
+        comments: Object.keys(result.value.comments).length,
+        id: result.value.id,
+        url: result.value.url,
+        key: result.key
+    }
+
+    return data;
+}
+
 exports.navigatedTo = function(args) {
     page = args.object;
     page.bindingContext = pageData;
 
     pageData.set("isLoading", true);
 
-    while (cinemaCollection.length) {
-        cinemaCollection.pop();
-    }
+    emptyCollection();
 
     cinemaService.getAll(function(result) {
-        var data = {
-            name: result.value.name,
-            rating: getCinemaAverageRating(result.value.rating),
-            comments: result.value.comments,
-            id: result.value.id,
-            url: result.value.url,
-            key: result.key
-        }
+        var data = parseCinemaResult(result);
 
         cinemaCollection.push(data);
 
@@ -84,50 +96,50 @@ exports.filter = function(args) {
 
     var filter = page.getViewById("name");
 
-    while (cinemaCollection.length) {
-        cinemaCollection.pop();
-    }
+    emptyCollection();
 
     if (filter.text == "") {
         cinemaService.getAll(function(result) {
-            var data = {
-                name: result.value.name,
-                rating: getCinemaAverageRating(result.value.rating),
-                comments: result.value.comments,
-                id: result.value.id,
-                url: result.value.url,
-                key: result.key
-            }
+            var data = parseCinemaResult(result);
 
             cinemaCollection.push(data);
-
+        }).then(function(success) {
             pageData.set("isLoading", false);
+        }).catch(function(error) {
+            pageData.set("isLoading", false);
+
+            dialogsModule.alert({
+                message: "Nothing found!",
+                okButtonText: "OK"
+            });
         });
     } else {
         cinemaService.getByFilter(filter.text, function(result) {
-            var data = {
-                name: result.value.name,
-                rating: getCinemaAverageRating(result.value.rating),
-                comments: result.value.comments,
-                id: result.value.id,
-                url: result.value.url,
-                key: result.key
-            }
+            var data = parseCinemaResult(result);
 
             cinemaCollection.push(data);
-
-            pageData.set("isLoading", false);
         }).then(function(success) {
             pageData.set("isLoading", false);
-
-            if (cinemaCollection.length == 0) {
-                dialogsModule.alert({
-                    message: "Nothing found!",
-                    okButtonText: "OK"
-                });
-            }
         }).catch(function(error) {
-            console.log("error");
+            pageData.set("isLoading", false);
+
+            dialogsModule.alert({
+                message: "Nothing found!",
+                okButtonText: "OK"
+            });
         });
     }
 };
+
+exports.toggleCinemaFilterVisibility = function(args) {
+    var direction = args.direction;
+
+    switch (direction) {
+        case 4:
+            pageData.set("showCinemaFilter", false);
+            break;
+        case 8:
+            pageData.set("showCinemaFilter", true);
+            break;
+    }
+}

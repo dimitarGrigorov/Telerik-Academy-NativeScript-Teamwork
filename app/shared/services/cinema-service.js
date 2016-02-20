@@ -43,7 +43,7 @@ function getByFilter(name, callback) {
                 value: 'name'
             },
             range: {
-                type: firebase.QueryRangeType.START_AT,
+                type: firebase.QueryRangeType.EQUAL_TO,
                 value: name
             }
         }
