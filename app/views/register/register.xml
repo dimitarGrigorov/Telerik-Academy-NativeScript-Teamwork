@@ -3,8 +3,10 @@
         <ActionBar title="Sign up"></ActionBar>
     </Page.actionBar>
     <StackLayout>
-        <TextField text="{{ email }}" id="email" hint="Email Address" keyboardType="email" />
+        <TextField text="{{ username }}" hint="Username" />
         <TextField text="{{ password }}" secure="true" hint="Password" />
+        <TextField text="{{ name }}" hint="Name" />
+        <TextField text="{{ email }}" id="email" hint="Email Address" keyboardType="email" />
 
         <Button text="Sign Up" tap="register" />
     </StackLayout>

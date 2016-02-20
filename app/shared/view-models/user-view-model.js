@@ -1,51 +1,34 @@
 var config = require("../../shared/config");
-var firebase = require("nativescript-plugin-firebase");
 var observableModule = require("data/observable");
+var everlive = require('../everlive');
 
 function User(data) {
     data = data || {};
 
     var viewModel = new observableModule.Observable({
-        email: data.email || "ns-testing@gmail.com",
-        password: data.password || "password"
+		username: data.username || 'johndoe',
+        password: data.password || "password",
+		name: 'John Doe',
+        email: data.email || "ns-testing@gmail.com"
     });
 
-    viewModel.init = function() {
-        firebase.init({
-            url: config.apiUrl
-          }).then(
-              function (instance) {
-                console.log("firebase.init done");
-              },
-              function (error) {
-                console.log("firebase.init error: " + error);
-              }
-          );
-    };
+	viewModel.login = function() {
+    	var username = viewModel.get("username");
+    	var password = viewModel.get("password");
 
-    viewModel.login = function() {
-        return firebase.login({
-            type: firebase.LoginType.PASSWORD,
-            email: viewModel.get("email"),
-            password: viewModel.get("password")
-          }).then(
-            function (response) {
-                console.log(response);
-                config.uid = response.uid
-                return response;
-            });
+		return everlive.authentication.login(username, password);
     };
 
     viewModel.register = function() {
-        return firebase.createUser({
-            email: viewModel.get("email"),
-            password: viewModel.get("password")
-          }).then(
-              function (response) {
-                console.log(response);
-                return response;
-              }
-          )
+    	var username = viewModel.get("username");
+    	var password = viewModel.get("password");
+    	var name = viewModel.get('name');
+    	var email = viewModel.get('email');
+
+		return everlive.Users.register(username, password, {
+			Email: email,
+			DisplayName: name
+		});
     };
 
     return viewModel;

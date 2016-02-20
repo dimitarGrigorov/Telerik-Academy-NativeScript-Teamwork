@@ -18,7 +18,7 @@ function register() {
                 });
         }).catch(function(error) {
             dialogsModule.alert({
-                message: error,
+                message: error.message,
                 okButtonText: "OK"
             });
         });

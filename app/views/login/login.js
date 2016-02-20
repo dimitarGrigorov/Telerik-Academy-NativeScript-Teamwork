@@ -3,21 +3,21 @@ var frameModule = require("ui/frame");
 var viewModule = require("ui/core/view");
 var UserViewModel = require("../../shared/view-models/user-view-model");
 var user = new UserViewModel();
+var everlive = require('../../shared/everlive');
+var page;
 
 function loaded(args) {
-    var page = args.object;
-
+    page = args.object;
     page.bindingContext = user;
-    user.init()
 };
 
 function signIn() {
     user.login()
         .then(function() {
             frameModule.topmost().navigate("views/cinema/list/list");
-        }).catch(function(error) {
+        }, function(error) {
             dialogsModule.alert({
-                message: error,
+                message: error.message,
                 okButtonText: "OK"
             });
         });

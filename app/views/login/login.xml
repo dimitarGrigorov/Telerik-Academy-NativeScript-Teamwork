@@ -3,7 +3,7 @@
         <ActionBar title="Sign in"></ActionBar>
     </Page.actionBar>
     <StackLayout orientation="vertical">
-        <TextField text="{{ email }}" hint="Email Address" keyboardType="email" />
+        <TextField text="{{ username }}" hint="Username" />
         <TextField secure="true" text="{{ password }}" hint="Password" />
 
         <Button class="btn" text="Sign in" tap="signIn" />
