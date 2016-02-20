@@ -49,9 +49,9 @@ function onNavigatedTo(args) {
     });
 
     cinemaService.getById(page.navigationContext.cinemaId)
-    	.then(function (data) {
+    	.then(function (response) {
 			pageData.set('cinemaId', page.navigationContext.cinemaId);
-			pageData.set('cinemaData', data.result);
+			pageData.set('cinemaData', response.result);
 			pageData.set('isLoading', false);
     	}, function (error) {
     		console.log('Error in details view: ' + error.message);

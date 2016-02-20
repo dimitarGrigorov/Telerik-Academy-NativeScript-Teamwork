@@ -16,7 +16,7 @@ function getAllByCinemaId(cinemaId) {
 }
 
 function create(data) {
-	return everlive.data(endpoint).create(data)
+	return everlive.data(endpoint).create(data);
 }
 
 exports.getAll = getAll;

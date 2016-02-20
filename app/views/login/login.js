@@ -12,9 +12,14 @@ function loaded(args) {
 };
 
 function signIn() {
+    var navigationEntry = {
+        moduleName: "views/cinema/list/list",
+        clearHistory: true
+    };
+
     user.login()
         .then(function() {
-            frameModule.topmost().navigate("views/cinema/list/list");
+            frameModule.topmost().navigate(navigationEntry);
         }, function(error) {
             dialogsModule.alert({
                 message: error.message,

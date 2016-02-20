@@ -1,15 +1,16 @@
 var view = require('ui/core/view');
 var CommentSection = require('../../../shared/view-models/comment-section-view-model');
 var commentService = require('../../../shared/services/comment-service');
+var userService = require('../../../shared/services/user-service');
 var _ = require('lodash');
 
 var page;
 var pageData;
 
 function loadComments() {
-    commentService.getAllByCinemaId(pageData.get('cinemaId'))
-		.then(function (data) {
-			pageData.set('comments', _.reverse(data.result));
+	commentService.getAllByCinemaId(pageData.get('cinemaId'))
+		.then(function (response) {
+			pageData.set('comments', _.reverse(response.result));
 	    }, function (error) {
 	    	console.log('Error in comments view: ' + error.message);
 	    });
@@ -31,15 +32,14 @@ function submitComment() {
 	var text = pageData.get('commentToSubmit');
 
 	if (text.length) {
-		commentService.create({
-			from: 'User', // TODO: change this
-			cinemaId: cinemaId,
-			text: text
-		}).then(function () {
-			loadComments();
-		}, function (error) {
-			console.log('Error in submitting comment: ' + error);
-		});
+		userService.getCurrent()
+			.then(function (response) {
+				commentService.create({
+					text: text,
+					from: response.result.Username,
+					cinemaId: cinemaId
+				}).then(loadComments);
+			});
 	}
 
 	// hide keyboard
