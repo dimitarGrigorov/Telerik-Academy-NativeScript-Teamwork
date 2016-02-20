@@ -20,6 +20,19 @@ function share() {
 	socialShare.shareText(string);
 }
 
+function showCommentSection() {
+    var navigationEntry = {
+        moduleName: 'views/cinema/comments/comments',
+        context: {
+            cinemaId: pageData.get('cinemaId'),
+            comments: pageData.get('cinemaData').comments
+        },
+        animated: true
+    };
+
+    frameModule.topmost().navigate(navigationEntry);
+}
+
 function onNavigatedTo(args) {
 	var page = args.object;
 
@@ -32,6 +45,7 @@ function onNavigatedTo(args) {
     
 	var data = cinemaService.getById(page.navigationContext.cinemaId, function (result) {
 		if (!result.error) {
+			pageData.set('cinemaId', page.navigationContext.cinemaId);
 			pageData.set('cinemaData', result.value);
 			pageData.set('isLoading', false);
 		}
@@ -41,4 +55,5 @@ function onNavigatedTo(args) {
 }
 
 exports.share = share;
+exports.showCommentSection = showCommentSection;
 exports.onNavigatedTo = onNavigatedTo;

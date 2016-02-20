@@ -1,5 +1,4 @@
 Button {
-	height: 50;
 	color: #FFFFFF;
 	background-color: #6441A5;
 }
@@ -8,8 +7,14 @@ Label {
 	text-align: center;
 }
 
-#header {
+TextView {
+	vertical-align: center;
+}
+
+.comment {
+	padding: 10 0;
+}
+
+.btn-send {
 	height: 50;
-	font-size: 30;
-	opacity: 0;
 }

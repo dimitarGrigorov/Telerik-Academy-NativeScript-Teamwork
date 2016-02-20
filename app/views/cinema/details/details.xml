@@ -1,23 +1,12 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
-	<StackLayout orientation="vertical">
-		<DockLayout>
-  			<Label id="header" dock="top" text="{{ cinemaData.name }}" />
-		</DockLayout>
-	    <Image class="details-image" src="{{ cinemaData.url }}" />
-		<GridLayout rows="auto" columns="auto, *, auto">
-			<Button text="Share" tap="share" row="0" col="0" />
-			<Button text="Rate" tap="" row="0" col="2" />
+	<DockLayout stretchLastChild="true">
+		<Label id="header" dock="top" text="{{ cinemaData.name }}" />
+		<Button dock="bottom" text="Show comment section" tap="showCommentSection" />
+		<GridLayout dock="left" rows="250, *" columns="auto, *, auto">
+			<ActivityIndicator busy="{{ isLoading }}" row="0" col="0" rowSpan="2" colSpan="3" />
+			<Image class="details-image" src="{{ cinemaData.url }}" row="0" col="0" colSpan="3" />
+			<Button text="Share" tap="share" row="1" col="0" />
+			<Button text="Rate" tap="" row="1" col="2" />
 		</GridLayout>
-
-		<Button text="Add a comment" tap="" />
-		<GridLayout rows="*" columns="*" visibility="{{ isLoading ? 'visible' : 'collapsed' }}">
-	  		<ActivityIndicator busy="{{ isLoading }}" row="0" col="0" />
-		</GridLayout>
-
-	  	<ListView items="{{ cinemaData.comments }}" itemTap="onItemTap">
-	  		<ListView.itemTemplate>
-			    <Label class="comment" text="{{ $value.text }}" textWrap="true" />
-	  		</ListView.itemTemplate>
-	  	</ListView>
-	</StackLayout>
+	</DockLayout>
 </Page>

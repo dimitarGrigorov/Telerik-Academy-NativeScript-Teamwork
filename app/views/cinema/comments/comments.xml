@@ -1,0 +1,11 @@
+<Page loaded="onLoaded" navigatedTo="onNavigatedTo">
+	<GridLayout rows="auto, *" columns="*, *, *">
+		<TextView text="" hint="Write a comment..." row="0" col="0" colSpan="2" />
+	    <Button class="btn btn-send" text="Send" tap="" row="0" col="2" />
+	  	<ListView items="{{ comments }}" itemTap="onItemTap" row="2" col="0" colSpan="3">
+			<ListView.itemTemplate>
+				<Label class="comment" text="{{ $value.text }}" textWrap="true" />
+			</ListView.itemTemplate>
+		</ListView>
+	</GridLayout>
+</Page>
