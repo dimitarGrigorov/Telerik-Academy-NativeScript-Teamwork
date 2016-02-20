@@ -1,9 +1,17 @@
 var _ = require('lodash');
 
-function getCollectionItems(collection) {
-	return _.map(collection, function (item) {
-		return item;
+function sortById(items) {
+	var collection = {};
+
+	_.each(items, function (item) {
+		if (!collection[item.Id]) {
+			collection[item.Id] = [];
+		}
+
+		collection[item.Id].push(item);
 	});
+
+	return collection;
 }
 
-exports.getCollectionItems = getCollectionItems;
+exports.sortById = sortById;

@@ -4,7 +4,6 @@ var view = require("ui/core/view");
 var ImageModule = require("ui/image");
 var Observable = require('data/observable').Observable;
 // var cinemaService = require("../../../shared/services/cinema-service");
-var utils = require('../../../shared/utils');
 var everlive = require("../../../shared/everlive"); // TODO: remove
 var socialShare = require("nativescript-social-share");
 
