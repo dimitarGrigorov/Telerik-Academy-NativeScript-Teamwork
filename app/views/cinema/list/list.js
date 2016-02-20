@@ -31,8 +31,6 @@ exports.navigatedTo = function(args) {
 
     pageData.set("isLoading", true);
 
-    var listView = page.getViewById("cinema-list");
-
     while (cinemaCollection.length) {
         cinemaCollection.pop();
     }
@@ -43,7 +41,8 @@ exports.navigatedTo = function(args) {
             rating: getCinemaAverageRating(result.value.rating),
             comments: result.value.comments,
             id: result.value.id,
-            url: result.value.url
+            url: result.value.url,
+            key: result.key
         }
 
         cinemaCollection.push(data);
@@ -59,12 +58,16 @@ exports.navigatedTo = function(args) {
 };
 
 exports.viewDetails = function(args) {
-    var cinemaId = cinemaCollection.getItem(args.index).id;
+    var cinema = cinemaCollection.getItem(args.index);
+
+    var id = cinema.id;
+    var key = cinema.key;
 
     var navigationEntry = {
         moduleName: "views/cinema/details/details",
         context: {
-            cinemaId: cinemaId,
+            cinemaId: id,
+            key: key
         },
         animated: true
     };
@@ -74,4 +77,57 @@ exports.viewDetails = function(args) {
 
 exports.addCinema = function(args) {
     frameModule.topmost().navigate("views/cinema/add-item/add-item");
+};
+
+exports.filter = function(args) {
+    pageData.set("isLoading", true);
+
+    var filter = page.getViewById("name");
+
+    while (cinemaCollection.length) {
+        cinemaCollection.pop();
+    }
+
+    if (filter.text == "") {
+        cinemaService.getAll(function(result) {
+            var data = {
+                name: result.value.name,
+                rating: getCinemaAverageRating(result.value.rating),
+                comments: result.value.comments,
+                id: result.value.id,
+                url: result.value.url,
+                key: result.key
+            }
+
+            cinemaCollection.push(data);
+
+            pageData.set("isLoading", false);
+        });
+    } else {
+        cinemaService.getByFilter(filter.text, function(result) {
+            var data = {
+                name: result.value.name,
+                rating: getCinemaAverageRating(result.value.rating),
+                comments: result.value.comments,
+                id: result.value.id,
+                url: result.value.url,
+                key: result.key
+            }
+
+            cinemaCollection.push(data);
+
+            pageData.set("isLoading", false);
+        }).then(function(success) {
+            pageData.set("isLoading", false);
+
+            if (cinemaCollection.length == 0) {
+                dialogsModule.alert({
+                    message: "Nothing found!",
+                    okButtonText: "OK"
+                });
+            }
+        }).catch(function(error) {
+            console.log("error");
+        });
+    }
 };

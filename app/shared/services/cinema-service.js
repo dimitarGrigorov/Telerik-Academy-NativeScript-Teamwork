@@ -34,7 +34,7 @@ function getAll(callback) {
     );
 }
 
-function getByFilter(offset, limit, callback) {
+function getByFilter(name, callback) {
     return firebase.query(
         callback || onQueryEvent,
         cinemaRoute, {
@@ -44,11 +44,7 @@ function getByFilter(offset, limit, callback) {
             },
             range: {
                 type: firebase.QueryRangeType.START_AT,
-                value: null
-            },
-            limit: {
-                type: firebase.QueryLimitType.FIRST,
-                value: limit
+                value: name
             }
         }
     );
