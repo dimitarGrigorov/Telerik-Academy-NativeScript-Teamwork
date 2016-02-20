@@ -2,22 +2,28 @@ var dialogsModule = require("ui/dialogs");
 var frameModule = require("ui/frame");
 var viewModule = require("ui/core/view");
 var ImageModule = require("ui/image");
-var view = require("ui/core/view");
 var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
-var cinemaService = require("../../../shared/services/cinema-service");
 var ObservableArray = require("data/observable-array").ObservableArray;
 var loadash = require("lodash");
 var config = require("../../../shared/config");
+var cinemaService = require("../../../shared/services/cinema-service");
 
 var page;
 
 var cinemaCollection = new ObservableArray([]);
-
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
 
-var currentPage = 0;
+function getCinemaAverageRating(cinemaRatings) {
+    var sum = loadash.reduce(cinemaRatings, function(sum, n) {
+        return sum + n;
+    }, 0);
+
+    var averageRating = sum / cinemaRatings.length;
+
+    return averageRating;
+}
 
 exports.navigatedTo = function(args) {
     page = args.object;
@@ -31,106 +37,26 @@ exports.navigatedTo = function(args) {
         cinemaCollection.pop();
     }
 
-    cinemaService.getAll(currentPage * config.cinemaListSize + 1, config.cinemaListSize, function(result) {
-        var totalRating = loadash.reduce(result.value.rating, function(sum, n) {
-            return sum + n;
-        }, 0);
-        var averageRating = totalRating / result.value.rating.length;
+    cinemaService.getAll(function(result) {
         var data = {
             name: result.value.name,
-            rating: averageRating,
+            rating: getCinemaAverageRating(result.value.rating),
             comments: result.value.comments,
             id: result.value.id,
             url: result.value.url
         }
+
         cinemaCollection.push(data);
 
         pageData.set("isLoading", false);
 
+        var listView = page.getViewById("cinema-list");
         listView.animate({
             opacity: 1,
             duration: 1000
         });
     });
 };
-
-exports.prev = function() {
-    if (currentPage > 0) {
-        currentPage--;
-    } else {
-        return;
-    }
-
-    pageData.set("isLoading", true);
-
-    var offset = currentPage * config.cinemaListSize + 1;
-    var limit = config.cinemaListSize;
-
-    while (cinemaCollection.length) {
-        cinemaCollection.pop();
-    }
-
-    var listView = page.getViewById("cinema-list");
-
-    cinemaService.getAll(offset, limit, function(result) {
-        var totalRating = loadash.reduce(result.value.rating, function(sum, n) {
-            return sum + n;
-        }, 0);
-        var averageRating = totalRating / result.value.rating.length;
-        var data = {
-            name: result.value.name,
-            rating: averageRating,
-            comments: result.value.comments,
-            id: result.value.id,
-            url: result.value.url
-        }
-        cinemaCollection.push(data);
-
-        pageData.set("isLoading", false);
-
-        listView.animate({
-            opacity: 1,
-            duration: 1000
-        });
-    });
-}
-
-exports.next = function() {
-    currentPage++;
-
-    pageData.set("isLoading", true);
-
-    var offset = currentPage * config.cinemaListSize + 1;
-    var limit = config.cinemaListSize;
-
-    var listView = page.getViewById("cinema-list");
-
-    while (cinemaCollection.length) {
-        cinemaCollection.pop();
-    }
-
-    cinemaService.getAll(offset, limit, function(result) {
-        var totalRating = loadash.reduce(result.value.rating, function(sum, n) {
-            return sum + n;
-        }, 0);
-        var averageRating = totalRating / result.value.rating.length;
-        var data = {
-            name: result.value.name,
-            rating: averageRating,
-            comments: result.value.comments,
-            id: result.value.id,
-            url: result.value.url
-        }
-        cinemaCollection.push(data);
-
-        pageData.set("isLoading", false);
-
-        listView.animate({
-            opacity: 1,
-            duration: 1000
-        });
-    });
-}
 
 exports.viewDetails = function(args) {
     var cinemaId = cinemaCollection.getItem(args.index).id;
@@ -144,4 +70,8 @@ exports.viewDetails = function(args) {
     };
 
     frameModule.topmost().navigate(navigationEntry);
+};
+
+exports.addCinema = function(args) {
+    frameModule.topmost().navigate("views/cinema/add-item/add-item");
 };

@@ -1,0 +1,8 @@
+<Page class="page" navigatedTo="navigatedTo">
+    <Page.actionBar>
+        <ActionBar title="Add New Cinema"></ActionBar>
+    </Page.actionBar>
+    <GridLayout rows="auto, *" columns="*, *, *">
+        
+    </GridLayout>
+</Page>

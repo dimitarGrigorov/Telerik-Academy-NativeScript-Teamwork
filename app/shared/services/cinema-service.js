@@ -22,24 +22,36 @@ function getById(id, callback) {
     )
 }
 
-function getAll(offset, limit, callback) {
+function getAll(callback) {
     return firebase.query(
         callback || onQueryEvent,
         cinemaRoute, {
             orderBy: {
                 type: firebase.QueryOrderByType.CHILD,
                 value: 'id'
+            }
+        }
+    );
+}
+
+function getByFilter(offset, limit, callback) {
+    return firebase.query(
+        callback || onQueryEvent,
+        cinemaRoute, {
+            orderBy: {
+                type: firebase.QueryOrderByType.CHILD,
+                value: 'name'
             },
             range: {
                 type: firebase.QueryRangeType.START_AT,
-                value: offset
+                value: null
             },
             limit: {
                 type: firebase.QueryLimitType.FIRST,
                 value: limit
             }
         }
-    )
+    );
 }
 
 function onQueryEvent(result) {
@@ -52,3 +64,4 @@ function onQueryEvent(result) {
 
 exports.getById = getById;
 exports.getAll = getAll;
+exports.getByFilter = getByFilter;
