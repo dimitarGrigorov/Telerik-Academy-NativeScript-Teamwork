@@ -143,3 +143,7 @@ exports.toggleCinemaFilterVisibility = function(args) {
             break;
     }
 }
+
+exports.showCinemaFilter = function(args) {
+    pageData.set("showCinemaFilter", true);
+}

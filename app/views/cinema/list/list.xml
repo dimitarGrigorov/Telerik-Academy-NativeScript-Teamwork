@@ -1,6 +1,13 @@
 <Page class="page" navigatedTo="navigatedTo">
     <Page.actionBar>
-        <ActionBar swipe="toggleCinemaFilterVisibility" title="Cinemas"></ActionBar>
+        <ActionBar>
+            <ActionBar.titleView>
+                <GridLayout columns="3*,1*">
+                    <Label class="page-title" col="0" text="Cinemas" minWidth="100" />
+                    <Image tap="showCinemaFilter" col="1" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" /> 
+                </GridLayout>
+            </ActionBar.titleView>
+        </ActionBar>
     </Page.actionBar>
     <GridLayout rows="auto,5*,auto" columns="1*,2*,1*">
         <GridLayout swipe="toggleCinemaFilterVisibility" visibility="{{ showCinemaFilter ? 'visible' : 'collapse' }}" class="grid-filter" row="0" col="0" colspan="3" rows="auto,auto" columns="1*,2*,1*">

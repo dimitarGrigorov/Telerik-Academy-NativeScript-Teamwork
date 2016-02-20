@@ -1,33 +1,37 @@
 .page {
-	color: #262626;
-	font-size: 14;
+    color: #262626;
+    font-size: 14;
+}
+
+.page-title {
+    font-size: 24;
 }
 
 .list {
-	margin: 5;
+    margin: 5;
     opacity: 0;
 }
 
-.list-item {
-}
+.list-item {}
 
 .img {
-	margin: 5;
+    margin: 5;
 }
 
 .rating {
-	font-size: 20;
+	color: #262626;
+    font-size: 20;
 }
 
 .comments {
-	font-size: 20;
+	color: #262626;
+    font-size: 20;
 }
 
-.grid-filter {
-}
+.grid-filter {}
 
 .btn {
-	background-color: #6441A5;
-	color: #FFFFFF;
-	font-size: 16;
+    background-color: #6441A5;
+    color: #FFFFFF;
+    font-size: 16;
 }
