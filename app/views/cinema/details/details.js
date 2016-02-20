@@ -3,9 +3,9 @@ var frameModule = require("ui/frame");
 var view = require("ui/core/view");
 var ImageModule = require("ui/image");
 var Observable = require('data/observable').Observable;
-var cinemaService = require("../../../shared/services/cinema-service");
+// var cinemaService = require("../../../shared/services/cinema-service");
 var utils = require('../../../shared/utils');
-
+var everlive = require("../../../shared/everlive"); // TODO: remove
 var socialShare = require("nativescript-social-share");
 
 var page;
@@ -26,18 +26,14 @@ function share() {
 }
 
 function showCommentSection() {
-	var cinemaData = pageData.get('cinemaData');
-
-	if (!cinemaData) {
+	if (!pageData.get('cinemaId')) {
 		return;
 	}
 
     var navigationEntry = {
         moduleName: 'views/cinema/comments/comments',
         context: {
-            cinemaId: pageData.get('cinemaId'),
-            cinemaKey: pageData.get('cinemaKey'),
-            comments: utils.getCollectionItems(pageData.get('cinemaData').comments)
+            cinemaId: pageData.get('cinemaId')
         }
     };
 
@@ -47,23 +43,28 @@ function showCommentSection() {
 
 function onNavigatedTo(args) {
 	page = args.object;
-	// pageData.set("isLoading", true);
+	pageData.set("isLoading", true);
 
 	view.getViewById(page, 'header').animate({
         opacity: 1,
         duration: 1000
-    });	
-    
-	var data = cinemaService.getById(page.navigationContext.cinemaId, function random(result) {
-		console.log('changed');
-		if (!result.error) {
-			pageData.set('cinemaId', page.navigationContext.cinemaId);
-			pageData.set('cinemaKey', page.navigationContext.key);
-			pageData.set('cinemaData', result.value);
+    });
+
+	// TODO: get from list view
+	var navigationContext = {
+		cinemaId: '56dfaa50-d7fb-11e5-a249-190939b8d860'
+	};
+
+    // TODO: get item from cinema-service
+    everlive.data('Cinemas').getById(navigationContext.cinemaId)
+    	.then(function (data) {
+			pageData.set('cinemaId', navigationContext.cinemaId);
+			pageData.set('cinemaData', data.result);
 			pageData.set('isLoading', false);
-			random = 1;
-		}
-	});
+    	}, function (error) {
+    		console.log('Error in details view: ' + error.message);
+    	});
+
 
 	page.bindingContext = pageData;
 }

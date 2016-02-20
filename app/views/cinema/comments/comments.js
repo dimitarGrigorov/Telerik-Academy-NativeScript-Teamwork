@@ -1,24 +1,38 @@
 var view = require('ui/core/view');
-var firebase = require("nativescript-plugin-firebase");
 var CommentSection = require('../../../shared/view-models/comment-section-view-model');
+var commentService = require('../../../shared/services/comment-service');
+var _ = require('lodash');
 
 var page;
 var pageData;
 
+function loadComments() {
+    commentService.getAll()
+		.then(function (data) {
+			pageData.set('comments', _.reverse(data.result));
+	    }, function (error) {
+	    	console.log('Error in comments view: ' + error.message);
+	    });
+}
+
 function onNavigatedTo(args) {
 	page = args.object;
-	pageData = new CommentSection(page.navigationContext);
+
+	pageData = new CommentSection({
+		cinemaId: page.navigationContext.cinemaId
+	});
 
 	page.bindingContext = pageData;
+	loadComments();
 }
 
 function submitComment() {
-	firebase.push('/cinemas/' + pageData.get('cinemaKey') + '/comments', {
-		from: 'User', // TODO: change
-		text: pageData.get('commentToSubmit'),
-		timestamp: +new Date()
-	}).then(function (success) {
-		console.log('Success in submitting comment: ' + success);
+	commentService.create({
+		from: 'User', // TODO: change this
+		cinemaId: pageData.get('cinemaId'),
+		text: pageData.get('commentToSubmit')
+	}).then(function () {
+		loadComments();
 	}, function (error) {
 		console.log('Error in submitting comment: ' + error);
 	});
