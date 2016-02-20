@@ -25,6 +25,7 @@ function submitComment() {
 
 	// hide keyboard
 	view.getViewById(page, 'comment-to-add').dismissSoftInput();
+	pageData.set('commentToSubmit', '')
 }
 
 exports.onNavigatedTo = onNavigatedTo;

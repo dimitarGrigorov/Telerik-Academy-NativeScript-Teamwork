@@ -14,7 +14,7 @@ function register() {
             dialogsModule
                 .alert("Your account was successfully created.")
                 .then(function() {
-                    // frameModule.topmost().navigate("views/some/route");
+                    frameModule.topmost().navigate("views/login/login");
                 });
         }).catch(function(error) {
             dialogsModule.alert({
