@@ -1,4 +1,4 @@
 var Everlive = require('../libs/everlive.all.min.js');
 var config = require('./config');
 
-module.exports = new Everlive(config.everliveKey)
+module.exports = new Everlive(config.apiKey);
