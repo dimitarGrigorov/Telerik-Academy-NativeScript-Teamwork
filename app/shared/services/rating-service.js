@@ -2,10 +2,6 @@ var Everlive = require('../../libs/everlive.all.min');
 var everlive = require('../everlive');
 var endpoint = 'Ratings';
 
-function getAll() {
-	return everlive.data(endpoint).get();
-}
-
 function getByUserId(userId) {
     var data = everlive.data(endpoint);
 	var query = new Everlive.Query();
@@ -30,10 +26,12 @@ function getAllByCinemaId(cinemaId) {
 }
 
 function create(data) {
-	return everlive.data(endpoint).create(data);
+	return everlive.data(endpoint).create({
+		Value: data.value,
+		CinemaId: data.cinemaId
+	});
 }
 
-exports.getAll = getAll;
 exports.getByUserId = getByUserId;
 exports.destroyByUserId = destroyByUserId;
 exports.getAllByCinemaId = getAllByCinemaId;

@@ -44,9 +44,10 @@ function addRating(didRateBefore) {
 	    animated: true
 	};
 
+	// Formatting of data should happen in rating service
 	ratingService.create({
-		Value: pageData.getRateValue(),
-		CinemaId: pageData.get('cinemaId')
+		value: pageData.getRatingValue(),
+		cinemaId: pageData.get('cinemaId')
 	}).then(function (response) {
 	        dialogsModule
 	            .alert(didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage)

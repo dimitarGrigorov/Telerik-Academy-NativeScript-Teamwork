@@ -11,7 +11,7 @@ function RatingSectionViewModel(data) {
 		cinemaId: data.cinemaId || ''
 	});
 
-	viewModel.getRateValue = function () {
+	viewModel.getRatingValue = function () {
 		return this.items[this.selectedIndex];
 	}
 

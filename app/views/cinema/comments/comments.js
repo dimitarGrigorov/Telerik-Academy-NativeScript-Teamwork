@@ -21,15 +21,12 @@ function onNavigatedTo(args) {
 
 function loadComments() {
 	commentService.getAllByCinemaId(pageData.get('cinemaId'))
-		.then(function (response) {
-			var comments = _.chain(response.result)
-				.map(function (comment) {
-					return new CommentViewModel(comment);
-				})
-				.reverse()
-				.value();
+		.then(function (responseData) {
+			var comments = _.map(responseData, function (comment) {
+				return new CommentViewModel(comment);
+			})
 
-			pageData.set('comments', comments);
+			pageData.set('comments', _.reverse(comments));
 	    }, function (error) {
 	    	console.log('Error in comments view: ' + error.message);
 	    });
@@ -43,9 +40,9 @@ function submitComment() {
 		userService.getCurrent()
 			.then(function (response) {
 				commentService.create({
-					Text: text,
-					From: response.result.Username,
-					CinemaId: cinemaId
+					from: response.result.Username,
+					text: text,
+					cinemaId: cinemaId
 				}).then(loadComments);
 			});
 	}

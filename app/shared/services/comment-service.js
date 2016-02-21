@@ -1,9 +1,22 @@
 var Everlive = require('../../libs/everlive.all.min');
 var everlive = require('../everlive');
 var endpoint = 'Comments';
+var _ = require('lodash');
 
-function getAll() {
-	return everlive.data(endpoint).get();
+function format(data, query) {
+	return data.get(query)
+		.then(function (response) {
+			return _.map(response.result, function (comment) {
+				return {
+					from: comment.From,
+					text: comment.Text,
+					createdAt: comment.CreatedAt,
+					cinemaId: data.CinemaId
+				};
+			});
+		}, function (error) {
+			console.log('Error in fetching comments: ' + error.message);
+		});
 }
 
 function getAllByCinemaId(cinemaId) {
@@ -12,13 +25,16 @@ function getAllByCinemaId(cinemaId) {
 
 	query.where().equal('CinemaId', cinemaId);
 
-	return data.get(query);
+	return format(data, query);
 }
 
 function create(data) {
-	return everlive.data(endpoint).create(data);
+	return everlive.data(endpoint).create({
+		From: data.from,
+		Text: data.text,
+		CinemaId: data.cinemaId
+	});
 }
 
-exports.getAll = getAll;
 exports.getAllByCinemaId = getAllByCinemaId;
 exports.create = create;
