@@ -2,7 +2,7 @@ var config = require("../../shared/config");
 var observableModule = require("data/observable");
 var everlive = require('../everlive');
 
-function User(data) {
+function UserViewModel(data) {
     data = data || {};
 
     var viewModel = new observableModule.Observable({
@@ -39,4 +39,4 @@ function User(data) {
     return viewModel;
 }
 
-module.exports = User;
+module.exports = UserViewModel;

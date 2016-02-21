@@ -1,6 +1,6 @@
 var observableModule = require('data/observable');
 
-function CommentSection(data) {
+function CommentSectionViewModel(data) {
 	data = data || {};
 
 	var viewModel = new observableModule.Observable({
@@ -12,4 +12,4 @@ function CommentSection(data) {
 	return viewModel;
 }
 
-module.exports = CommentSection;
+module.exports = CommentSectionViewModel;
