@@ -6,22 +6,23 @@ function getById(id) {
     return everlive.data(endpoint).getById(id);
 }
 
-function getCinemaList(offset, limit, name) {
-    var name = name || null;
-    var data = everlive.data(endpoint);
-    var query = new Everlive.Query();
+function getCinemaList(filter) {
+    var expandExp = {
+        "Ratings.CinemaId": true,
+        "Comments.CinemaId": true
+    };
 
-    if (name == null || name.length == 0) {
-        query
-            .skip(offset)
-            .take(limit);
-    } else {
-        query
-            .where()
-            .or()
-            .startsWith('name', name)
-            .endsWith('name', name);
-    }
+    filter = filter || {};
+
+    var offset = filter.offset || 0;
+    var limit = filter.limit || 5;
+
+    var data = everlive.data("Cinemas");
+    var query = new Everlive.Query();
+    query.expand(expandExp);
+
+    query.skip(offset).take(limit);
+
 
     return data.get(query);
 }

@@ -22,6 +22,11 @@ pageData.set("showCinemaFilter", true);
 var pageNumber = 0;
 var pageSize = 5;
 
+// Filter
+
+var sortByRating = true;
+var sortByComments = true;
+
 function loadList() {
     pageData.set("isLoading", true);
 
@@ -31,8 +36,10 @@ function loadList() {
     var name = page.getViewById("name").text;
 
     cinemaService
-        .getCinemaList(offset, limit, name)
+        .getCinemaList({ offset: offset, limit: limit })
         .then(function(response) {
+            console.log(JSON.stringify(response));
+
             cinemaCollection = utils.getList(response.result);
 
             pageData.set("cinemaList", cinemaCollection);

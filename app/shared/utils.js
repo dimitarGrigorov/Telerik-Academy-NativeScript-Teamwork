@@ -18,10 +18,12 @@ function getList(result) {
     var collection = [];
 
     _.each(result, function(item) {
+        var averageRating = getAverage(item["Ratings.CinemaId"]);
+
         var data = {
             name: item.Name,
-            rating: item.AverageRating,
-            comments: item.CommentsCount,
+            rating: averageRating,
+            comments: item["Comments.CinemaId"].length,
             id: item.Id,
             url: item.ImageUrl,
             location: item.Location
@@ -39,7 +41,7 @@ function getAverage(arr) {
     }
 
     var sum = _.reduce(arr, function(sum, n) {
-        return sum + n;
+        return sum + n.value;
     }, 0);
 
     var average = Math.round(sum / arr.length, 2);
