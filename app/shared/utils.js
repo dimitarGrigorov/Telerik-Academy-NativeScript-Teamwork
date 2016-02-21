@@ -18,15 +18,13 @@ function getList(result) {
     var collection = [];
 
     _.each(result, function(item) {
-        var averageRating = getAverage(item.rating);
-
         var data = {
-            name: item.name,
-            rating: averageRating,
-            comments: 5,
+            name: item.Name,
+            rating: item.AverageRating,
+            comments: item.CommentsCount,
             id: item.Id,
-            url: item.url,
-            location: item.location
+            url: item.ImageUrl,
+            location: item.Location
         };
 
         collection.push(data);
