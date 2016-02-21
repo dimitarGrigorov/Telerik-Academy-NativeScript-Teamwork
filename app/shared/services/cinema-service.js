@@ -8,8 +8,31 @@ function getById(id) {
 
 function getCinemaList(filter) {
     var expandExp = {
-        "Ratings.CinemaId": true,
-        "Comments.CinemaId": true
+        "Comments.CinemaId": {
+            "ReturnAs": "CinemaComments",
+            "Aggregate": {
+                "GroupBy": ["CinemaId"],
+                "Aggregate": {
+                    "Count": {
+                        "count": "CinemaId"
+                    }
+                }
+            },
+        },
+        "Ratings.CinemaId": {
+            "ReturnAs": "CinemaRatings",
+            "Aggregate": {
+                "GroupBy": ["CinemaId"],
+                "Aggregate": {
+                    "Count": {
+                        "count": "Value"
+                    },
+                    "Sum": {
+                        "sum": "Value"
+                    }
+                }
+            }
+        }
     };
 
     filter = filter || {};
@@ -18,11 +41,10 @@ function getCinemaList(filter) {
     var limit = filter.limit || 5;
 
     var data = everlive.data(endpoint);
+
     var query = new Everlive.Query();
     query.expand(expandExp);
-
     query.skip(offset).take(limit);
-
 
     return data.get(query);
 }

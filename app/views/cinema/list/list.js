@@ -51,6 +51,7 @@ function loadList() {
                 duration: 1000
             });
         }, function(error) {
+            console.log(JSON.stringify(error))
             pageData.set("isLoading", false);
 
             dialogsModule.alert({

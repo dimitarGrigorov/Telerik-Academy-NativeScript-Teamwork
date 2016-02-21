@@ -18,12 +18,21 @@ function getList(result) {
     var collection = [];
 
     _.each(result, function(item) {
-        var averageRating = getAverage(item["Ratings.CinemaId"]);
+        var averageRating = 0;
+        var commentsCount = 0;
+
+        if (item["CinemaRatings"][0] != undefined) {
+            averageRating = Math.round(item["CinemaRatings"][0].Sum / item["CinemaRatings"][0].Count, 2);
+        }
+
+        if (item["CinemaComments"][0] != undefined) {
+            commentsCount = item["CinemaComments"][0].Count;
+        }
 
         var data = {
             name: item.Name,
             rating: averageRating,
-            comments: item["Comments.CinemaId"].length,
+            comments: commentsCount,
             id: item.Id,
             url: item.ImageUrl,
             location: item.Location
@@ -35,20 +44,5 @@ function getList(result) {
     return collection;
 }
 
-function getAverage(arr) {
-    if (arr.length == undefined || arr.length == 0) {
-        return 0;
-    }
-
-    var sum = _.reduce(arr, function(sum, n) {
-        return sum + n.value;
-    }, 0);
-
-    var average = Math.round(sum / arr.length, 2);
-
-    return average;
-}
-
 exports.sortById = sortById;
-exports.getAverage = getAverage;
 exports.getList = getList;
