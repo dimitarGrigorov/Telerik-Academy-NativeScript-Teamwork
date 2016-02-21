@@ -10,7 +10,7 @@ Functionality of the application consists of:
 
 * Listing of current entries
 * Creating new entries
-* Filtering results by certain criterias
+* Filtering results by certain criteria
 * Pagination
 * 1 to 5 rating system
 * Comment section
