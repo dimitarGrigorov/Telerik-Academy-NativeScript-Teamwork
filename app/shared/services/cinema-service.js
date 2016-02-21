@@ -53,5 +53,19 @@ function getCinemaList(filter) {
     return data.get(query);
 }
 
+function addCinema(cinema){
+    var data = everlive.data(endpoint);
+
+    var item = {
+        Name: cinema.name,
+        ImageUrl: cinema.imageUrl,
+        Location: cinema.location,
+        Keywords: cinema.keywords
+    };
+
+    return data.create(item);
+}
+
 exports.getById = getById;
 exports.getCinemaList = getCinemaList;
+exports.addCinema = addCinema;

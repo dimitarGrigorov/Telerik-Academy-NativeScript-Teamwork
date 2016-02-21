@@ -22,7 +22,7 @@ function getList(result) {
         var commentsCount = 0;
 
         if (item["CinemaRatings"][0] != undefined) {
-            averageRating = Math.round(item["CinemaRatings"][0].Sum / item["CinemaRatings"][0].Count, 2);
+            averageRating = Math.round(item["CinemaRatings"][0].Sum / item["CinemaRatings"][0].Count);
         }
 
         if (item["CinemaComments"][0] != undefined) {

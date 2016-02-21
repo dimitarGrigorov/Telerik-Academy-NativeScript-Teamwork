@@ -2,8 +2,11 @@
     <Page.actionBar>
         <ActionBar title="Add New Cinema"></ActionBar>
     </Page.actionBar>
-    <StackLayout>
-        <Button text="Enable Location" tap="enableLocationTap"/>
-        <Button text="Get Location" tap="getLocationTap"/>
-    </StackLayout>
+    <GridLayout rows="1*,1*,1*,2*,1*" colums="1*,1*">
+        <TextView id="name" text="" hint="Name" row="0" col="0" colSpan="2" />
+        <TextView id="location" text="" hint="Location" row="1" col="0" colSpan="2" />
+        <TextView id="image-url" text="" hint="Image Url" row="2" col="0" colSpan="2" />
+        <TextView id="keywords" text="" hint="Keywords (separated by comma)" row="3" col="0" colSpan="2" />
+        <Button class="btn btn-send" text="Submit" tap="submitCinema" row="4" colspan="2" />
+    </GridLayout>
 </Page>

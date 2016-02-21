@@ -1,35 +1,44 @@
 var view = require('ui/core/view');
-var geolocation = require("nativescript-geolocation");
+var dialogsModule = require("ui/dialogs");
+var frameModule = require("ui/frame");
+var cinemaService = require("../../../shared/services/cinema-service");
 
-var locationModule = require("location");
-var LocationManager = require("location").LocationManager;
-var isEnabled = LocationManager.isEnabled();
-
+var page;
 var pageData;
 
-function onNavigatedTo(args) {
-    var page = args.object;
-
+function navigatedTo(args) {
+    page = args.object;
 }
 
-function enableLocationTap(args) {
+function submitCinema(args) {
+    var name = page.getViewById('name');
+    var location = page.getViewById('location');
+    var imageUrl = page.getViewById('image-url');
+    var keywords = page.getViewById('keywords');
 
-    if (!geolocation.isEnabled()) {
-        geolocation.enableLocationRequest();
-    }
+    var cinema = {
+        name: name.text,
+        location: location.text,
+        imageUrl: imageUrl.text,
+        keywords: keywords.text.split(',')
+    };
+
+    cinemaService
+        .addCinema(cinema)
+        .then(function(response) {
+            dialogsModule.alert({
+                message: "You have successfully added a new cinema!",
+                okButtonText: "OK"
+            }).then(function() {
+                frameModule.topmost().navigate('views/cinema/list/list');
+            });
+        }, function(error) {
+            dialogsModule.alert({
+                message: "An error occured while trying to add a new cinema. Please try again!",
+                okButtonText: "OK"
+            });
+        });
 }
 
-
-function getLocationTap(args) {
-
-    locationModule.getLocation({ maximumAge: 30000, timeout: 10000 }).then(function(location) {
-        console.log('Location received: ' + location);
-    }, function(error) {
-        console.log('Location error received: ' + error);
-    });
-}
-
-
-exports.onNavigatedTo = onNavigatedTo;
-exports.enableLocationTap = enableLocationTap;
-exports.getLocationTap = getLocationTap;
+exports.navigatedTo = navigatedTo;
+exports.submitCinema = submitCinema;
