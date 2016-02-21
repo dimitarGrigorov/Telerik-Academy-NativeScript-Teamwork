@@ -21,6 +21,7 @@ pageData.set("showCinemaFilter", true);
 
 var pageNumber = 0;
 var pageSize = 5;
+var totalItems = 0;
 
 // Filter
 
@@ -36,9 +37,9 @@ function loadList() {
     var name = page.getViewById("name").text;
 
     cinemaService
-        .getCinemaList({ offset: offset, limit: limit })
+        .getCinemaList({ offset: offset, limit: limit, keyword: name })
         .then(function(response) {
-            console.log(JSON.stringify(response));
+            totalItems = response.count;
 
             cinemaCollection = utils.getList(response.result);
 
@@ -129,6 +130,10 @@ exports.previousPage = function() {
 }
 
 exports.nextPage = function() {
+    if ((pageNumber + 1) * pageSize >= totalItems) {
+        return;
+    }
+
     pageNumber++;
 
     loadList();

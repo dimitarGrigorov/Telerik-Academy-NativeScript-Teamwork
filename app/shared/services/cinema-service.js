@@ -39,11 +39,15 @@ function getCinemaList(filter) {
 
     var offset = filter.offset || 0;
     var limit = filter.limit || 5;
+    var keyword = filter.keyword || "";
 
     var data = everlive.data(endpoint);
 
     var query = new Everlive.Query();
     query.expand(expandExp);
+    if (keyword != "") {
+        query.where().all('Keywords', [keyword]);
+    }
     query.skip(offset).take(limit);
 
     return data.get(query);
