@@ -7,15 +7,17 @@ var Observable = require('data/observable').Observable;
 var cinemaService = require("../../../shared/services/cinema-service");
 var utils = require("../../../shared/utils");
 var Toast = require("nativescript-toast");
+var appSettings = require("application-settings");
 
 var page;
 
 // Cinema Data
 
+var showCinemaFilter = appSettings.getBoolean("showCinemaFilter", false);
 var cinemaCollection = [];
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
-pageData.set("showCinemaFilter", true);
+pageData.set("showCinemaFilter", showCinemaFilter);
 
 // Pagination
 
@@ -105,6 +107,7 @@ exports.hideCinemaFilter = function(args) {
         case 1:
         case 2:
             pageData.set("showCinemaFilter", false);
+            appSettings.setBoolean("showCinemaFilter", false);
 
             Toast.makeText("Hint: Double tap on the search icon to show the cinema filter!", "long").show();
             break;
@@ -113,6 +116,7 @@ exports.hideCinemaFilter = function(args) {
 
 exports.showCinemaFilter = function(args) {
     pageData.set("showCinemaFilter", true);
+    appSettings.setBoolean("showCinemaFilter", true);
 
     Toast.makeText("Hint: Swipe on the cinema filter to hide it!!", "long").show();
 }

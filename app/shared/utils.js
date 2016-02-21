@@ -7,8 +7,6 @@ function getList(result) {
         var averageRating = 0;
         var commentsCount = 0;
 
-        console.log(JSON.stringify(item));
-
         if (item["CinemaRatings"][0] != undefined) {
             averageRating = Math.round(item["CinemaRatings"][0].Average);
         }
