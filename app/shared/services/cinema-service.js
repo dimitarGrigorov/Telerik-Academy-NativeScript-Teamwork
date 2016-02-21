@@ -29,6 +29,9 @@ function getCinemaList(filter) {
                     },
                     "Sum": {
                         "sum": "Value"
+                    },
+                    "Average": {
+                        "avg": "Value"
                     }
                 }
             }
@@ -48,12 +51,14 @@ function getCinemaList(filter) {
     if (keyword != "") {
         query.where().all('Keywords', [keyword]);
     }
-    query.skip(offset).take(limit);
+    query.orderDesc('CreatedAt')
+        .skip(offset)
+        .take(limit);
 
     return data.get(query);
 }
 
-function addCinema(cinema){
+function addCinema(cinema) {
     var data = everlive.data(endpoint);
 
     var item = {

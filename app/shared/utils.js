@@ -1,19 +1,5 @@
 var _ = require('lodash');
 
-function sortById(items) {
-    var collection = {};
-
-    _.each(items, function(item) {
-        if (!collection[item.Id]) {
-            collection[item.Id] = [];
-        }
-
-        collection[item.Id].push(item);
-    });
-
-    return collection;
-}
-
 function getList(result) {
     var collection = [];
 
@@ -21,8 +7,10 @@ function getList(result) {
         var averageRating = 0;
         var commentsCount = 0;
 
+        console.log(JSON.stringify(item));
+
         if (item["CinemaRatings"][0] != undefined) {
-            averageRating = Math.round(item["CinemaRatings"][0].Sum / item["CinemaRatings"][0].Count);
+            averageRating = Math.round(item["CinemaRatings"][0].Average);
         }
 
         if (item["CinemaComments"][0] != undefined) {
@@ -44,5 +32,4 @@ function getList(result) {
     return collection;
 }
 
-exports.sortById = sortById;
 exports.getList = getList;
