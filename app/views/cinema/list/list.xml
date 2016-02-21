@@ -20,7 +20,7 @@
             <ListView.itemTemplate>
                 <GridLayout class="list-item" columns="auto,*,auto,auto">
                     <Image class="img" width="96" src="{{ url }}" row="0" col="0" />
-                    <Label row="0" col="1" text="{{ name }}" />
+                    <Label row="0" col="1" textWrap="true" text="{{ name }}" />
                     <Image row="0" col="2" horizontalAlignment="center" verticalAlignment="center" width="48" src="~/images/rating.png" />
                     <Label row="0" col="2" class="rating" horizontalAlignment="center" verticalAlignment="center" text="{{ rating }}" />
                     <Image row="0" col="3" horizontalAlignment="center" verticalAlignment="center" width="48" src="~/images/comments.png" />

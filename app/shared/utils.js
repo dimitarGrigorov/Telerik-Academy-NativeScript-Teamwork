@@ -25,7 +25,8 @@ function getList(result) {
             rating: averageRating,
             comments: 5,
             id: item.Id,
-            url: item.url
+            url: item.url,
+            location: item.location
         };
 
         collection.push(data);

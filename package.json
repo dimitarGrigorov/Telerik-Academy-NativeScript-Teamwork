@@ -13,6 +13,7 @@
     "lodash": "^4.4.0",
     "nativescript-geolocation": "0.0.8",
     "nativescript-social-share": "^1.1.2",
+    "nativescript-toast": "^1.2.0",
     "tns-core-modules": "1.5.2"
   },
   "devDependencies": {},
