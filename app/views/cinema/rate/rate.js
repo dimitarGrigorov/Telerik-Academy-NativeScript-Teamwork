@@ -21,10 +21,8 @@ function onNavigatedTo(args) {
 function submitRating(rating) {
 	var userId;
 
-	userService.getCurrent().then(function (response) { // get current user's information
-		userId = response.result.Id;
-
-		return ratingService.getByUserId(userId);
+	userService.getCurrent().then(function (userData) { // get current user's information
+		return ratingService.getByUserId(userData.id);
 	}).then(function (response) { // destroy current user's rating, if such is present
 		if (response.count) {
 			return ratingService.destroyByUserId(userId)

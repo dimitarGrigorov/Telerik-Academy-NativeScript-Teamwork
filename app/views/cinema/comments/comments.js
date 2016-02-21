@@ -38,9 +38,9 @@ function submitComment() {
 
 	if (text.length) {
 		userService.getCurrent()
-			.then(function (response) {
+			.then(function (userData) {
 				commentService.create({
-					from: response.result.Username,
+					from: userData.username,
 					text: text,
 					cinemaId: cinemaId
 				}).then(loadComments);
