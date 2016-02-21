@@ -4,41 +4,25 @@ var viewModule = require("ui/core/view");
 var ImageModule = require("ui/image");
 var gestures = require("ui/gestures");
 var Observable = require('data/observable').Observable;
-var ObservableArray = require("data/observable-array").ObservableArray;
 var cinemaService = require("../../../shared/services/cinema-service");
 var utils = require("../../../shared/utils");
+var Toast = require("nativescript-toast");
 
 var page;
+
+// Cinema Data
 
 var cinemaCollection = [];
 var pageData = new Observable();
 pageData.set("cinemaList", cinemaCollection);
 pageData.set("showCinemaFilter", true);
 
+// Pagination
+
 var pageNumber = 0;
 var pageSize = 5;
 
-function getList(result) {
-    var collection = [];
-
-    for (var i = 0; i < result.length; i++) {
-        var averageRating = utils.getAverage(result[i].rating);
-
-        var data = {
-            name: result[i].name,
-            rating: averageRating,
-            comments: 5,
-            id: result[i].Id,
-            url: result[i].url
-        };
-
-        collection.push(data);
-    }
-
-    return collection;
-}
-
-function load() {
+function loadList() {
     pageData.set("isLoading", true);
 
     var offset = pageNumber * pageSize;
@@ -46,24 +30,18 @@ function load() {
 
     var name = page.getViewById("name").text;
 
-    cinemaService.getCinemaList(offset, limit, name)
+    cinemaService
+        .getCinemaList(offset, limit, name)
         .then(function(response) {
-            pageData.set("isLoading", false);
-
-            var list = getList(response.result);
-
-            cinemaCollection = list;
+            cinemaCollection = utils.getList(response.result);
 
             pageData.set("cinemaList", cinemaCollection);
+            pageData.set("isLoading", false);
 
             var listView = page.getViewById("cinema-list");
             listView.animate({
                 opacity: 1,
                 duration: 1000
-            });
-
-            listView.observe(gestures.GestureTypes.longPress, function(args) {
-                console.log(args);
             });
         }, function(error) {
             pageData.set("isLoading", false);
@@ -79,7 +57,7 @@ exports.navigatedTo = function(args) {
     page = args.object;
     page.bindingContext = pageData;
 
-    load();
+    loadList();
 };
 
 // Cinema
@@ -107,7 +85,7 @@ exports.addCinema = function(args) {
 // Filter
 
 exports.filter = function(args) {
-    load();
+    loadList();
 };
 
 exports.hideCinemaFilter = function(args) {
@@ -118,12 +96,16 @@ exports.hideCinemaFilter = function(args) {
         case 1:
         case 2:
             pageData.set("showCinemaFilter", false);
+
+            Toast.makeText("Hint: Double tap on the search icon to show the cinema filter!", "long").show();
             break;
     }
 }
 
 exports.showCinemaFilter = function(args) {
     pageData.set("showCinemaFilter", true);
+
+    Toast.makeText("Hint: Swipe on the cinema filter to hide it!!", "long").show();
 }
 
 // Pagination
@@ -135,11 +117,11 @@ exports.previousPage = function() {
 
     pageNumber--;
 
-    load();
+    loadList();
 }
 
 exports.nextPage = function() {
     pageNumber++;
 
-    load();
+    loadList();
 }

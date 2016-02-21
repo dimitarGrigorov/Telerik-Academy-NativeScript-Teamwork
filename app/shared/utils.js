@@ -14,6 +14,26 @@ function sortById(items) {
     return collection;
 }
 
+function getList(result) {
+    var collection = [];
+
+    _.each(result, function(item) {
+        var averageRating = getAverage(item.rating);
+
+        var data = {
+            name: item.name,
+            rating: averageRating,
+            comments: 5,
+            id: item.Id,
+            url: item.url
+        };
+
+        collection.push(data);
+    });
+
+    return collection;
+}
+
 function getAverage(arr) {
     if (arr.length == undefined || arr.length == 0) {
         return 0;
@@ -30,3 +50,4 @@ function getAverage(arr) {
 
 exports.sortById = sortById;
 exports.getAverage = getAverage;
+exports.getList = getList;
