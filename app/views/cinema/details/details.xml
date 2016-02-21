@@ -5,10 +5,12 @@
 	<DockLayout stretchLastChild="true">
 		<Label id="header" dock="top" text="{{ cinemaData.name }}" />
 		<Button dock="bottom" text="Show comment section" tap="showCommentSection" />
-		<GridLayout dock="left" rows="250, *" columns="auto, *, auto">
+		<GridLayout dock="left" rows="250, *, *" columns="auto, *, auto">
 			<Image class="details-image" src="{{ cinemaData.imageUrl }}" row="0" col="0" colSpan="3" />
-			<Button text="Share" tap="share" row="1" col="0" />
-			<GridLayout rows="*" columns="*, *, *, *, *" row="1" col="1">
+			<Label text="{{ cinemaData.location }}" textWrap="true" row="1" col="0" colSpan="3" />
+			
+			<Button text="Share" tap="share" row="2" col="0" />
+			<GridLayout rows="*" columns="*, *, *, *, *" row="2" col="1">
 				<ActivityIndicator busy="{{ isLoading }}" row="0" col="0" colSpan="5" />
 			    <Button class="{{ isLoading ? 'hidden' : ratingClasses[0] }}" row="0" col="0" />
 			    <Button class="{{ isLoading ? 'hidden' : ratingClasses[1] }}" row="0" col="1" />
@@ -16,8 +18,7 @@
 			    <Button class="{{ isLoading ? 'hidden' : ratingClasses[3] }}" row="0" col="3" />
 			    <Button class="{{ isLoading ? 'hidden' : ratingClasses[4] }}" row="0" col="4" />
 			</GridLayout>
-
-			<Button text="Rate" tap="rate" row="1" col="2" />
+			<Button text="Rate" tap="rate" row="2" col="2" />
 		</GridLayout>
 	</DockLayout>
 </Page>

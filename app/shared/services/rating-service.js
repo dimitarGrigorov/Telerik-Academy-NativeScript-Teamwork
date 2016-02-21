@@ -1,19 +1,38 @@
 var Everlive = require('../../libs/everlive.all.min');
 var everlive = require('../everlive');
 var endpoint = 'Ratings';
+var _ = require('lodash');
 
-function getByUserId(userId) {
+function format(data, query) {
+	return data.get(query)
+		.then(function (response) {
+			return _.map(response.result, function (rating) {
+				return {
+					value: rating.Value
+				};
+			});
+		}, function (error) {
+			console.log('Error in fetching ratings: ' + error.message);
+		});
+}
+
+function getByUserAndCinemaId(userId, cinemaId) {
     var data = everlive.data(endpoint);
 	var query = new Everlive.Query();
 
-	query.where().equal('CreatedBy', userId);
+	query.where()
+		.equal('CreatedBy', userId)
+		.equal('CinemaId', cinemaId);
 
-	return data.get(query);
+	return format(data, query);
 }
 
-function destroyByUserId(userId) {
+function destroyByUserAndCinemaId(userId, cinemaId) {
 	return everlive.data(endpoint)
-		.destroy({ 'CreatedBy': userId });
+		.destroy({
+			'CreatedBy': userId,
+			'CinemaId': cinemaId
+		});
 }
 
 function getAllByCinemaId(cinemaId) {
@@ -22,7 +41,7 @@ function getAllByCinemaId(cinemaId) {
 
 	query.where().equal('CinemaId', cinemaId);
 
-	return data.get(query);
+	return format(data, query);
 }
 
 function create(data) {
@@ -32,7 +51,7 @@ function create(data) {
 	});
 }
 
-exports.getByUserId = getByUserId;
-exports.destroyByUserId = destroyByUserId;
+exports.getByUserAndCinemaId = getByUserAndCinemaId;
+exports.destroyByUserAndCinemaId = destroyByUserAndCinemaId;
 exports.getAllByCinemaId = getAllByCinemaId;
 exports.create = create;

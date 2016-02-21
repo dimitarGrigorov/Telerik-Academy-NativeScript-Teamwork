@@ -7,7 +7,7 @@ var ratingService = require('../../../shared/services/rating-service');
 var page;
 var pageData;
 var neverDidRateBeforeMessage = 'Thank you for your feedback!';
-var didRateBeforeMessage = 'You have rated this cinema before. With this action you override your last choice!';
+var didRateBeforeMessage = 'You have rated this cinema before. You will change your previous vote!';
 
 function onNavigatedTo(args) {
 	page = args.object;
@@ -20,12 +20,14 @@ function onNavigatedTo(args) {
 
 function submitRating(rating) {
 	var userId;
+	var cinemaId = pageData.get('cinemaId');
 
 	userService.getCurrent().then(function (userData) { // get current user's information
-		return ratingService.getByUserId(userData.id);
-	}).then(function (response) { // destroy current user's rating, if such is present
-		if (response.count) {
-			return ratingService.destroyByUserId(userId)
+		userId = userData.id;
+		return ratingService.getByUserAndCinemaId(userId, cinemaId);
+	}).then(function (ratings) { // destroy current user's rating, if such is present
+		if (ratings.length) {
+			return ratingService.destroyByUserAndCinemaId(userId, cinemaId)
 				.then(addRating.bind(this, true));
 		}
 
@@ -39,7 +41,7 @@ function addRating(didRateBefore) {
 	    context: {
 	        cinemaId: pageData.get('cinemaId')
 	    },
-	    animated: true
+		clearHistory: true
 	};
 
 	// Formatting of data should happen in rating service

@@ -61,16 +61,10 @@ function showCommentSection() {
 function calculateRating() {
 	cinemaValidator(function (cinemaData) {
 		ratingService.getAllByCinemaId(cinemaData.id)
-			.then(function (response) {
-				var sum = _.chain(response.result)
-					.map(function (rating) {
-						return rating.Value;
-					})
-					.reduce(function (a, b) {
-						return a + b;
-					})
+			.then(function (ratings) {
+				var sum = _.sumBy(ratings, 'value');
 
-				setRatingClasses(Math.round(sum / response.result.length));
+				setRatingClasses(ratings.length ? Math.round(sum / ratings.length) : 0);
 				pageData.set('isLoading', false);
 			}, function (error) {
 				console.log('Error in calculating rating: ' + error.message);
