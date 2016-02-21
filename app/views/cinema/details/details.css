@@ -13,3 +13,18 @@ Label {
 	font-size: 30;
 	opacity: 0;
 }
+
+.rating-item {
+	width: 30;
+	height: 30;
+	border-radius: 50;
+	background-color: #E7D9D9;
+}
+
+.rating-item-active {
+	background-color: #F8F951;
+}
+
+.hidden {
+	visibility: collapsed;
+}
