@@ -1,5 +1,5 @@
 var view = require('ui/core/view');
-var CommentSection = require('../../../shared/view-models/comment-section-view-model');
+var CommentSectionViewModel = require('../../../shared/view-models/comment-section-view-model');
 var commentService = require('../../../shared/services/comment-service');
 var userService = require('../../../shared/services/user-service');
 var _ = require('lodash');
@@ -19,7 +19,7 @@ function loadComments() {
 function onNavigatedTo(args) {
 	page = args.object;
 
-	pageData = new CommentSection({
+	pageData = new CommentSectionViewModel({
 		cinemaId: page.navigationContext.cinemaId
 	});
 
