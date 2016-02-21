@@ -1,26 +1,32 @@
 var view = require('ui/core/view');
 var dialogsModule = require("ui/dialogs");
 var frameModule = require("ui/frame");
+var Toast = require("nativescript-toast");
 var cinemaService = require("../../../shared/services/cinema-service");
 
 var page;
-var pageData;
 
 function navigatedTo(args) {
     page = args.object;
 }
 
 function submitCinema(args) {
-    var name = page.getViewById('name');
-    var location = page.getViewById('location');
-    var imageUrl = page.getViewById('image-url');
-    var keywords = page.getViewById('keywords');
+    var name = page.getViewById('name').text;
+    var location = page.getViewById('location').text;
+    var imageUrl = page.getViewById('image-url').text;
+    var keywords = page.getViewById('keywords').text;
+
+    if (name == '' || location == '' || imageUrl == '' || keywords == '') {
+        Toast.makeText("Warning: All fields are required and cannot be empty!", "long").show();
+
+        return;
+    }
 
     var cinema = {
-        name: name.text,
-        location: location.text,
-        imageUrl: imageUrl.text,
-        keywords: keywords.text.split(',')
+        name: name,
+        location: location,
+        imageUrl: imageUrl,
+        keywords: keywords.split(',')
     };
 
     cinemaService
