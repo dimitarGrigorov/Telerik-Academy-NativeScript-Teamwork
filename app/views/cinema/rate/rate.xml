@@ -1,3 +1,6 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
-	<ListPicker items="{{ items }}" selectedIndex="{{ selectedIndex }}" verticalAlignment="center"></ListPicker>
+	<DockLayout stretchLastChild="true">
+		<Button text="Submit rating" tap="submitRating" dock="bottom" />
+		<ListPicker dock="top" items="{{ items }}" selectedIndex="{{ selectedIndex }}" verticalAlignment="center"></ListPicker>
+	</DockLayout>
 </Page>

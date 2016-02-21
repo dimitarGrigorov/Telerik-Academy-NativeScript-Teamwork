@@ -64,14 +64,18 @@ function calculateRating() {
 			.then(function (response) {
 				var sum = _.chain(response.result)
 					.map(function (rating) {
-						return rating.value;
+						return rating.Value;
 					})
 					.reduce(function (a, b) {
 						return a + b;
 					})
 
 				setRatingClasses(Math.round(sum / response.result.length));
-			})
+				pageData.set('isLoading', false);
+			}, function (error) {
+				console.log('Error in calculating rating: ' + error.message);
+				pageData.set('isLoading', false);
+			});
 	});
 }
 
@@ -85,22 +89,21 @@ function setRatingClasses(roundedRating) {
 	});
 
 	pageData.set('ratingClasses', newCollection);
-	pageData.set('isLoading', false);
 }
 
 function onNavigatedTo(args) {
 	page = args.object;
 	pageData.set('isLoading', true);
-	calculateRating();
 
 	view.getViewById(page, 'header').animate({
         opacity: 1,
         duration: 1000
     });
-    
+
     cinemaService.getById(page.navigationContext.cinemaId)
     	.then(function (response) {
 			pageData.set('cinemaData', new CinemaViewModel(response.result));
+			calculateRating();
     	}, function (error) {
     		console.log('Error in details view: ' + error.message);
     	});

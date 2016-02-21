@@ -3,7 +3,7 @@
 		<Label id="header" dock="top" text="{{ cinemaData.name }}" />
 		<Button dock="bottom" text="Show comment section" tap="showCommentSection" />
 		<GridLayout dock="left" rows="250, *" columns="auto, *, auto">
-			<Image class="details-image" src="{{ cinemaData.url }}" row="0" col="0" colSpan="3" />
+			<Image class="details-image" src="{{ cinemaData.imageUrl }}" row="0" col="0" colSpan="3" />
 			<Button text="Share" tap="share" row="1" col="0" />
 			<GridLayout rows="*" columns="*, *, *, *, *" row="1" col="1">
 				<ActivityIndicator busy="{{ isLoading }}" row="0" col="0" colSpan="5" />

@@ -1,4 +1,5 @@
 var view = require('ui/core/view');
+var CommentViewModel = require('../../../shared/view-models/comment-view-model');
 var CommentSectionViewModel = require('../../../shared/view-models/comment-section-view-model');
 var commentService = require('../../../shared/services/comment-service');
 var userService = require('../../../shared/services/user-service');
@@ -10,7 +11,14 @@ var pageData;
 function loadComments() {
 	commentService.getAllByCinemaId(pageData.get('cinemaId'))
 		.then(function (response) {
-			pageData.set('comments', _.reverse(response.result));
+			var comments = _.chain(response.result)
+				.map(function (comment) {
+					return new CommentViewModel(comment);
+				})
+				.reverse()
+				.value();
+
+			pageData.set('comments', comments);
 	    }, function (error) {
 	    	console.log('Error in comments view: ' + error.message);
 	    });
@@ -35,9 +43,9 @@ function submitComment() {
 		userService.getCurrent()
 			.then(function (response) {
 				commentService.create({
-					text: text,
-					from: response.result.Username,
-					cinemaId: cinemaId
+					Text: text,
+					From: response.result.Username,
+					CinemaId: cinemaId
 				}).then(loadComments);
 			});
 	}

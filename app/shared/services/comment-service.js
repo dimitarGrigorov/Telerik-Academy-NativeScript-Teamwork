@@ -10,7 +10,7 @@ function getAllByCinemaId(cinemaId) {
     var data = everlive.data(endpoint);
 	var query = new Everlive.Query();
 
-	query.where().equal('cinemaId', cinemaId);
+	query.where().equal('CinemaId', cinemaId);
 
 	return data.get(query);
 }
