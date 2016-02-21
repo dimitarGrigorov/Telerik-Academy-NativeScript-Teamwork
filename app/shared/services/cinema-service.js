@@ -17,7 +17,7 @@ function getCinemaList(filter) {
     var offset = filter.offset || 0;
     var limit = filter.limit || 5;
 
-    var data = everlive.data("Cinemas");
+    var data = everlive.data(endpoint);
     var query = new Everlive.Query();
     query.expand(expandExp);
 
