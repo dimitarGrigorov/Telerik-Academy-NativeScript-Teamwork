@@ -1,4 +1,7 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
+    <Page.actionBar>
+        <ActionBar title="Details"></ActionBar>
+    </Page.actionBar>
 	<DockLayout stretchLastChild="true">
 		<Label id="header" dock="top" text="{{ cinemaData.name }}" />
 		<Button dock="bottom" text="Show comment section" tap="showCommentSection" />

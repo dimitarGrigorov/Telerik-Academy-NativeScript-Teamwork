@@ -3,16 +3,24 @@ Button {
 	background-color: #6441A5;
 }
 
-Label {
-	text-align: center;
-}
-
 TextView {
 	vertical-align: center;
 }
 
+.sender, .comment, .timestamp {
+	padding: 5 15;
+}
+
+.timestamp {
+	text-align: right;
+}
+
+.sender, .timestamp {
+	color: #124ee9;
+}
+
 .comment {
-	padding: 10 0;
+	color: #030036;
 }
 
 .btn-send {

@@ -8,6 +8,17 @@ var _ = require('lodash');
 var page;
 var pageData;
 
+function onNavigatedTo(args) {
+	page = args.object;
+
+	pageData = new CommentSectionViewModel({
+		cinemaId: page.navigationContext.cinemaId
+	});
+
+	page.bindingContext = pageData;
+	loadComments();
+}
+
 function loadComments() {
 	commentService.getAllByCinemaId(pageData.get('cinemaId'))
 		.then(function (response) {
@@ -22,17 +33,6 @@ function loadComments() {
 	    }, function (error) {
 	    	console.log('Error in comments view: ' + error.message);
 	    });
-}
-
-function onNavigatedTo(args) {
-	page = args.object;
-
-	pageData = new CommentSectionViewModel({
-		cinemaId: page.navigationContext.cinemaId
-	});
-
-	page.bindingContext = pageData;
-	loadComments();
 }
 
 function submitComment() {
