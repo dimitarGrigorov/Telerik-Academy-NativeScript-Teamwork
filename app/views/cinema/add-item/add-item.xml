@@ -7,6 +7,6 @@
         <TextView id="location" text="" hint="Location" row="1" col="0" colSpan="2" />
         <TextView id="image-url" text="" hint="Image Url" row="2" col="0" colSpan="2" />
         <TextView id="keywords" text="" hint="Keywords (separated by comma)" row="3" col="0" colSpan="2" />
-        <Button class="btn btn-send" text="Submit" tap="submitCinema" row="4" colspan="2" />
+        <Button class="btn btn-send app-btn" text="Submit" tap="submitCinema" row="4" colspan="2" />
     </GridLayout>
 </Page>

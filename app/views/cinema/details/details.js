@@ -76,7 +76,7 @@ function calculateRating() {
 function setRatingClasses(roundedRating) {
     var itemCount = 5;
     var defaultClass = 'rating-item';
-    var activeClass = 'rating-item-active';
+    var activeClass = 'active';
 
     var newCollection = _.range(1, itemCount + 1).map(function (starRating) {
         return starRating <= roundedRating ? (defaultClass + ' ' + activeClass) : defaultClass;

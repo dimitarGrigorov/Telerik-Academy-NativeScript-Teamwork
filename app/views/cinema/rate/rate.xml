@@ -3,7 +3,7 @@
         <ActionBar title="Rate"></ActionBar>
     </Page.actionBar>
 	<DockLayout stretchLastChild="true">
-		<Button text="Submit rating" tap="submitRating" dock="bottom" />
+		<Button class="app-btn" text="Submit rating" tap="submitRating" dock="bottom" />
 		<ListPicker dock="top" items="{{ items }}" selectedIndex="{{ selectedIndex }}" verticalAlignment="center"></ListPicker>
 	</DockLayout>
 </Page>

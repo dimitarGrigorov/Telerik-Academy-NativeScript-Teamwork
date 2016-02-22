@@ -1,7 +1,5 @@
 Button {
     height: 50;
-    color: #FFFFFF;
-    background-color: #6441A5;
 }
 
 Label {
@@ -21,7 +19,7 @@ Label {
     background-color: #E7D9D9;
 }
 
-.rating-item-active {
+.active {
     background-color: #F8F951;
 }
 

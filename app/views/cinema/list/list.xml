@@ -13,7 +13,7 @@
         <GridLayout swipe="hideFilter" visibility="{{ showCinemaFilter ? 'visible' : 'collapse' }}" class="grid-filter" row="0" col="0" colspan="3" rows="auto" columns="1*,2*,1*">
             <Label row="0" col="0" text="Name" horizontalAlignment="right" verticalAlignment="center" />
             <TextField id="name" text="" row="0" col="1" />
-            <Button class="btn" text="Filter" tap="filter" row="0" col="2" />
+            <Button class="btn app-btn" text="Filter" tap="filter" row="0" col="2" />
         </GridLayout>
         <ActivityIndicator row="1" busy="{{ isLoading }}" colSpan="3" horizontalAlignment="center" verticalAlignment="center" />
         <ListView id="cinema-list" class="list" row="1" colspan="3" items="{{ cinemaList }}" itemTap="viewDetails">
@@ -28,8 +28,8 @@
                 </GridLayout>
             </ListView.itemTemplate>
         </ListView>
-        <Button class="btn" text="Prev" tap="previousPage" row="2" col="0" />
-        <Button class="btn" text="Add Cinema" tap="addCinema" row="2" col="1" />
-        <Button class="btn" text="Next" tap="nextPage" row="2" col="2" />
+        <Button class="btn app-btn" text="Prev" tap="previousPage" row="2" col="0" />
+        <Button class="btn app-btn" text="Add Cinema" tap="addCinema" row="2" col="1" />
+        <Button class="btn app-btn" text="Next" tap="nextPage" row="2" col="2" />
     </GridLayout>
 </Page>

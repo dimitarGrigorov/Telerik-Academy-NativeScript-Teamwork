@@ -4,11 +4,19 @@ Page {
     background-color: white;
     font-size: 17;
 }
+
 TextField {
     margin: 10;
     padding: 10;
 }
+
 Button {
     margin: 10;
     padding: 10;
+}
+
+.app-btn {
+    background-color: #6441A5;
+    color: #FFFFFF;
+    font-size: 16;
 }

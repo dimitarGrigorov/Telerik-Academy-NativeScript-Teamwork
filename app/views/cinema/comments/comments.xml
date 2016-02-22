@@ -4,7 +4,7 @@
     </Page.actionBar>
     <GridLayout rows="auto, *" columns="*, *, *">
         <TextView id="comment-to-add" text="{{ commentToSubmit }}" hint="Write a comment..." row="0" col="0" colSpan="2" />
-        <Button class="btn btn-send" text="Submit" tap="submitComment" row="0" col="2" />
+        <Button class="btn btn-send app-btn" text="Submit" tap="submitComment" row="0" col="2" />
         <ListView items="{{ comments }}" itemTap="onItemTap" row="2" col="0" colSpan="3">
             <ListView.itemTemplate>
                 <GridLayout rows="auto, auto" columns="*, *">

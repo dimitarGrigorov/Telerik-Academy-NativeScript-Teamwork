@@ -1,27 +1,27 @@
 {
-  "name": "ta-ns-teamwork",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "es6-promise": "^3.1.2",
-    "lodash": "^4.4.0",
-    "moment": "^2.11.2",
-    "nativescript-geolocation": "0.0.8",
-    "nativescript-social-share": "^1.1.2",
-    "nativescript-toast": "^1.2.0",
-    "tns-core-modules": "1.5.2"
-  },
-  "devDependencies": {},
-  "nativescript": {
-    "id": "org.nativescript.tansteamwork",
-    "tns-android": {
-      "version": "1.5.1"
-    }
-  }
+	"name": "ta-ns-teamwork",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"es6-promise": "^3.1.2",
+		"lodash": "^4.4.0",
+		"moment": "^2.11.2",
+		"nativescript-geolocation": "0.0.8",
+		"nativescript-social-share": "^1.1.2",
+		"nativescript-toast": "^1.2.0",
+		"tns-core-modules": "1.5.2"
+	},
+	"devDependencies": {},
+	"nativescript": {
+		"id": "org.nativescript.tansteamwork",
+		"tns-android": {
+			"version": "1.5.1"
+		}
+	}
 }
