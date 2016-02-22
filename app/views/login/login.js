@@ -19,7 +19,13 @@ function signIn() {
 
     user.login()
         .then(function() {
-            frameModule.topmost().navigate(navigationEntry);
+            var loginImage = page.getViewById('login-image');
+            loginImage.animate({
+                opacity: 0,
+                duration: 1000
+            }).then(function() {
+                frameModule.topmost().navigate(navigationEntry);
+            });
         }, function(error) {
             dialogsModule.alert({
                 message: error.message,
