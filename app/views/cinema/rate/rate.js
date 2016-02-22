@@ -18,10 +18,10 @@ function onNavigatedTo(args) {
 
     page.bindingContext = pageData;
 
-    ratingService.getAllByCinemaId(pageData.cinemaId)
-        .then(function(response) {
-            pageData.averageRating = utils.getAverageRating(response);
-        }, function(error) {
+    ratingService.getAllByCinemaId(pageData.get('cinemaId'))
+        .then(function (response) {
+            pageData.set('averageRating', utils.getAverageRating(response));
+        }, function (error) {
             dialogsModule.alert({
                 message: 'Cannot get cinema ratings!',
                 okButtonText: 'OK'
@@ -33,10 +33,10 @@ function submitRating(rating) {
     var userId;
     var cinemaId = pageData.get('cinemaId');
 
-    userService.getCurrent().then(function(userData) { // get current user's information
+    userService.getCurrent().then(function (userData) { // get current user's information
         userId = userData.id;
         return ratingService.getByUserAndCinemaId(userId, cinemaId);
-    }).then(function(ratings) { // destroy current user's rating, if such is present
+    }).then(function (ratings) { // destroy current user's rating, if such is present
         if (ratings.length) {
             return ratingService.destroyByUserAndCinemaId(userId, cinemaId)
                 .then(addRating.bind(this, true));
@@ -59,16 +59,16 @@ function addRating(didRateBefore) {
     ratingService.create({
         value: pageData.getRatingValue(),
         cinemaId: pageData.get('cinemaId')
-    }).then(function(response) {
+    }).then(function (response) {
         dialogsModule
             .alert({
                 message: didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage,
                 okButtonText: 'OK'
             })
-            .then(function() {
+            .then(function () {
                 frameModule.topmost().navigate(navigationEntry);
             });
-    }, function(error) {
+    }, function (error) {
         dialogsModule.alert({
             message: error.message,
             okButtonText: 'OK'

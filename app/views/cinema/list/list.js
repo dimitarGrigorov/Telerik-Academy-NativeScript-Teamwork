@@ -44,7 +44,7 @@ function loadList() {
         .then(function(response) {
             totalItems = response.count;
 
-            if (totalItems == 0) {
+            if (totalItems === 0) {
                 Toast.makeText('No cinemas found!', 'long').show();
             }
 
