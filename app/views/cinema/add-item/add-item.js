@@ -1,32 +1,44 @@
 var view = require('ui/core/view');
 var dialogsModule = require("ui/dialogs");
 var frameModule = require("ui/frame");
-var Toast = require("nativescript-toast");
 var cinemaService = require("../../../shared/services/cinema-service");
+var uidialogs = require("ui/dialogs");
 
 var page;
+var pageData;
 
 function navigatedTo(args) {
     page = args.object;
 }
 
 function submitCinema(args) {
-    var name = page.getViewById('name').text;
-    var location = page.getViewById('location').text;
-    var imageUrl = page.getViewById('image-url').text;
-    var keywords = page.getViewById('keywords').text;
-
-    if (name == '' || location == '' || imageUrl == '' || keywords == '') {
-        Toast.makeText("Warning: All fields are required and cannot be empty!", "long").show();
-
-        return;
-    }
-
+    var name = page.getViewById('name');
+    var location = page.getViewById('location');
+    var imageUrl = page.getViewById('image-url');
+    var keywords = page.getViewById('keywords');
+    
+   if(name === null || name === ''){
+       alert('Name is required!');
+       return;
+   }
+   if(location === null || location ===''){
+       alert('Location is required!');
+       return;
+   }
+   if(imageUrl === null || imageUrl ===''){
+       alert('Image URL is required!');
+       return;
+   }
+   if(!validateUrl(imageUrl)){
+       alert('Please enter valid image URL!');
+       return;
+   }
+    
     var cinema = {
-        name: name,
-        location: location,
-        imageUrl: imageUrl,
-        keywords: keywords.split(',')
+        name: name.text,
+        location: location.text,
+        imageUrl: imageUrl.text,
+        keywords: keywords.text.split(',')
     };
 
     cinemaService
@@ -44,6 +56,11 @@ function submitCinema(args) {
                 okButtonText: "OK"
             });
         });
+}
+
+function validateUrl(textval) {
+    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+    return urlregex.test(textval);
 }
 
 exports.navigatedTo = navigatedTo;
