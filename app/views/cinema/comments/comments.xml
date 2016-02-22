@@ -5,9 +5,10 @@
     <GridLayout rows="auto, *" columns="*, *, *">
         <TextView id="comment-to-add" text="{{ commentToSubmit }}" hint="Write a comment..." row="0" col="0" colSpan="2" />
         <Button class="btn btn-send app-btn" text="Submit" tap="submitComment" row="0" col="2" />
-        <ListView items="{{ comments }}" itemTap="onItemTap" row="2" col="0" colSpan="3">
+        <ListView items="{{ comments }}" row="2" col="0" colSpan="3">
             <ListView.itemTemplate>
                 <GridLayout rows="auto, auto" columns="*, *">
+                    <Label text="" commentData="{{ $value }}" longPress="onLongPress" textWrap="true" row="0" col="0" rowSpan="2" colSpan="2" />
                     <Label class="sender" text="{{ $value.from }}" textWrap="true" row="0" col="0" />
                     <Label class="timestamp" text="{{ $value.formattedDate }}" textWrap="true" row="0" col="1" />
                     <Label class="comment" text="{{ $value.text }}" textWrap="true" row="1" col="0" colSpan="2" />
