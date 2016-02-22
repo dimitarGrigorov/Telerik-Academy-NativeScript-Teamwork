@@ -4,7 +4,7 @@
             <GridLayout columns="1*,auto">
                 <Label col="0" horizontalAlignment="left" verticalAlignment="center" text="Comment" />
                 <Image col="1" horizontalAlignment="center" verticalAlignment="center" width="48" src="~/images/comments.png" />
-                <Label col="1" horizontalAlignment="center" verticalAlignment="center" text="{{ commentsCount }}" />
+                <Label col="1" horizontalAlignment="center" verticalAlignment="center" text="{{ comments.length }}" />
             </GridLayout>
         </ActionBar>
     </Page.actionBar>
@@ -14,7 +14,7 @@
         <ListView items="{{ comments }}" row="2" col="0" colSpan="3">
             <ListView.itemTemplate>
                 <GridLayout rows="auto, auto" columns="*, *">
-                    <Label text="" commentData="{{ $value }}" longPress="onLongPress" textWrap="true" row="0" col="0" rowSpan="2" colSpan="2" />
+                    <Label text="" commentData="{{ $value }}" longPress="longPress" textWrap="true" row="0" col="0" rowSpan="2" colSpan="2" />
                     <Label class="sender" text="{{ $value.from }}" textWrap="true" row="0" col="0" />
                     <Label class="timestamp" text="{{ $value.formattedDate }}" textWrap="true" row="0" col="1" />
                     <Label class="comment" text="{{ $value.text }}" textWrap="true" row="1" col="0" colSpan="2" />

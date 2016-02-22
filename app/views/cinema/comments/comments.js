@@ -30,7 +30,6 @@ function loadComments() {
             });
 
             pageData.set('comments', _.reverse(comments));
-            pageData.set('commentsCount', comments.length);
         }, function (error) {
             console.log('Error in comments view: ' + error.message);
         });
@@ -49,7 +48,7 @@ function submitComment() {
                     cinemaId: cinemaId
                 }).then(function () {
                     loadComments();
-                    Toast.makeText('You have successfully sent a message!', 'long').show();
+                    Toast.makeText('You have successfully submitted a comment!', 'long').show();
                 });
             }, function (error) {
                 Toast.makeText(error.message, 'long').show();
@@ -64,36 +63,56 @@ function submitComment() {
 function shareComment(from, text) {
     var shareMessage = 'Check out what ' + from + ' said: ' + text;
 
+    socialShare.shareText(shareMessage);
+}
+
+function deleteComment(commentId, userId) {
+    return commentService.destroyByCommentAndUserId(commentId, userId)
+        .then(function () {
+            loadComments();
+            Toast.makeText('You have successfully deleted your comment!', 'long').show();
+        }, function (error) {
+            dialogsModule.alert({
+                message: error.message,
+                okButtonText: 'OK'
+            });
+        });
+}
+
+function longPress(args) {
+    var commentFrom = args.view.commentData.from;
+    var commentText = args.view.commentData.text;
+    var commentId = args.view.commentData.id;
+    var actions = ['Share', 'Delete'];
+    var userId;
+
     userService.getCurrent()
-        .then(function () { // authenticated
-            socialShare.shareText(shareMessage);
+        .then(function (userData) {
+            userId = userData.id;
+
+            return commentService.getByCommentAndUserId(commentId, userId)
+                .then(function (data) {
+                    if (!data.length) { // if current comment does not belong to currently logged user
+                        actions.pop();
+                    }
+
+                    dialogsModule.action({
+                        message: 'Select an action',
+                        cancelButtonText: 'Do nothing...',
+                        actions: actions
+                    }).then(function (result) {
+                        if (result === 'Share') {
+                            shareComment(commentFrom, commentText);
+                        } else if (result === 'Delete') {
+                            deleteComment(commentId, userId);
+                        }
+                    });
+                });
         }, function (error) {
             Toast.makeText(error.message, 'long').show();
         });
 }
 
-function deleteComment() {
-}
-
-function onLongPress(args) {
-    var commentFrom = args.view.commentData.from;
-    var commentText = args.view.commentData.text;
-
-    console.log(commentFrom);    
-
-    dialogsModule.action({
-        message: 'Select an action',
-        cancelButtonText: 'Do nothing...',
-        actions: ['Share', 'Delete']
-    }).then(function (result) {
-        if (result === 'Share') {
-            shareComment(commentFrom, commentText);
-        } else if (result === 'Delete') {
-            deleteComment();
-        }
-    });
-}
-
 exports.onNavigatedTo = onNavigatedTo;
 exports.submitComment = submitComment;
-exports.onLongPress = onLongPress;
+exports.longPress = longPress;

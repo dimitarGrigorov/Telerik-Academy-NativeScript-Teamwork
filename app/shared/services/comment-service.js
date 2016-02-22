@@ -8,10 +8,11 @@ function format(data, query) {
         .then(function (response) {
             return _.map(response.result, function (comment) {
                 return {
+                    id: comment.Id,
                     from: comment.From,
                     text: comment.Text,
                     createdAt: comment.CreatedAt,
-                    cinemaId: data.CinemaId
+                    cinemaId: comment.CinemaId
                 };
             });
         }, function (error) {
@@ -28,6 +29,25 @@ function getAllByCinemaId(cinemaId) {
     return format(data, query);
 }
 
+function getByCommentAndUserId(commentId, userId) {
+    var data = everlive.data(endpoint);
+    var query = new Everlive.Query();
+
+    query.where()
+        .equal('Id', commentId)
+        .equal('CreatedBy', userId);
+
+    return format(data, query);
+}
+
+function destroyByCommentAndUserId(commentId, userId) {
+    return everlive.data(endpoint)
+        .destroy({
+            'Id': commentId,
+            'CreatedBy': userId
+        });
+}
+
 function create(data) {
     return everlive.data(endpoint).create({
         From: data.from,
@@ -37,4 +57,6 @@ function create(data) {
 }
 
 exports.getAllByCinemaId = getAllByCinemaId;
+exports.getByCommentAndUserId = getByCommentAndUserId;
+exports.destroyByCommentAndUserId = destroyByCommentAndUserId;
 exports.create = create;

@@ -5,10 +5,11 @@ function CommentViewModel(data) {
 	data = data || {};
 
 	var viewModel = new observableModule.Observable({
+        id: data.id || '',
+        cinemaId: data.cinemaId || '',
 		from: data.from || '',
 		text: data.text || '',
-		formattedDate: moment(data.createdAt).fromNow(),
-		cinemaId: data.cinemaId || ''
+		formattedDate: moment(data.createdAt).fromNow()
 	});
 
 	return viewModel;

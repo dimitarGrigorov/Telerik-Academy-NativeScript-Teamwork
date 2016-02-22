@@ -8,6 +8,7 @@ function format(data, query) {
         .then(function (response) {
             return _.map(response.result, function (rating) {
                 return {
+                    id: rating.Id,
                     value: rating.Value
                 };
             });
