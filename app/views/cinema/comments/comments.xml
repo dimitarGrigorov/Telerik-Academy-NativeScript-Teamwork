@@ -1,6 +1,12 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
     <Page.actionBar>
-        <ActionBar title="Comment"></ActionBar>
+        <ActionBar title="Comment">
+            <GridLayout columns="1*,auto">
+                <Label col="0" horizontalAlignment="left" verticalAlignment="center" text="Comment" />
+                <Image col="1" horizontalAlignment="center" verticalAlignment="center" width="48" src="~/images/comments.png" />
+                <Label col="1" horizontalAlignment="center" verticalAlignment="center" text="{{ commentsCount }}" />
+            </GridLayout>
+        </ActionBar>
     </Page.actionBar>
     <GridLayout rows="auto, *" columns="*, *, *">
         <TextView id="comment-to-add" text="{{ commentToSubmit }}" hint="Write a comment..." row="0" col="0" colSpan="2" />

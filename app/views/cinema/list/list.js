@@ -8,6 +8,7 @@ var cinemaService = require('../../../shared/services/cinema-service');
 var utils = require('../../../shared/utils');
 var Toast = require('nativescript-toast');
 var appSettings = require('application-settings');
+var user = require('../../../shared/services/user-service');
 
 var page;
 
@@ -67,6 +68,16 @@ function loadList() {
 function navigatedTo(args) {
     page = args.object;
     page.bindingContext = pageData;
+
+    user.getCurrent()
+        .then(function(userDetails) {
+            pageData.set('username', userDetails.displayName);
+        }, function(error) {
+            dialogsModule.alert({
+                message: 'Cannot get current user!',
+                okButtonText: 'OK'
+            });
+        });
 
     loadList();
 }

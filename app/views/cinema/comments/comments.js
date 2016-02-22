@@ -30,6 +30,7 @@ function loadComments() {
             });
 
             pageData.set('comments', _.reverse(comments));
+            pageData.set('commentsCount', comments.length);
         }, function (error) {
             console.log('Error in comments view: ' + error.message);
         });
