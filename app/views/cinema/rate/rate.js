@@ -1,4 +1,3 @@
-var dialogsModule = require('ui/dialogs');
 var frameModule = require('ui/frame');
 var RatingSectionViewModel = require('../../../shared/view-models/rating-section-view-model');
 var userService = require('../../../shared/services/user-service');
@@ -22,10 +21,7 @@ function onNavigatedTo(args) {
         .then(function (response) {
             pageData.set('averageRating', utils.getAverageRating(response));
         }, function (error) {
-            dialogsModule.alert({
-                message: 'Cannot get cinema ratings!',
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert('Cannot get cinema ratings!');
         });
 }
 
@@ -59,19 +55,12 @@ function addRating(didRateBefore) {
         value: pageData.getRatingValue(),
         cinemaId: pageData.get('cinemaId')
     }).then(function (response) {
-        dialogsModule
-            .alert({
-                message: didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage,
-                okButtonText: 'OK'
-            })
+        utils.dialogueAlert(didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage)
             .then(function () {
                 frameModule.topmost().navigate(navigationEntry);
             });
     }, function (error) {
-        dialogsModule.alert({
-            message: error.message,
-            okButtonText: 'OK'
-        });
+        utils.dialogueAlert(error.message);
     });
 }
 

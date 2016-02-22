@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var dialogsModule = require('ui/dialogs');
 
 function getList(result) {
     var collection = [];
@@ -52,7 +53,20 @@ function getKeywords(keywordString) {
         });
 }
 
+function dialogueAlert(message, okButtonText) {
+    return dialogsModule.alert({
+        message: message,
+        okButtonText: okButtonText || 'OK'
+    });
+}
+
+function dialogueAction(options) {
+    return dialogsModule.action(options);
+}
+
 exports.getList = getList;
 exports.validateUrl = validateUrl;
 exports.getKeywords = getKeywords;
 exports.getAverageRating = getAverageRating;
+exports.dialogueAlert = dialogueAlert;
+exports.dialogueAction = dialogueAction;

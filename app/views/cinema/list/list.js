@@ -1,9 +1,9 @@
-var dialogsModule = require('ui/dialogs');
 var frameModule = require('ui/frame');
 var viewModule = require('ui/core/view');
 var ImageModule = require('ui/image');
 var gestures = require('ui/gestures');
 var Observable = require('data/observable').Observable;
+var utils = require('../../../shared/utils');
 var cinemaService = require('../../../shared/services/cinema-service');
 var utils = require('../../../shared/utils');
 var Toast = require('nativescript-toast');
@@ -65,10 +65,7 @@ function loadList() {
             console.log(JSON.stringify(error));
             pageData.set('isLoading', false);
 
-            dialogsModule.alert({
-                message: 'An error occured while trying to get the cinema list!',
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert('An error occured while trying to get the cinema list!');
         });
 }
 
@@ -80,10 +77,7 @@ function navigatedTo(args) {
         .then(function(userDetails) {
             pageData.set('username', userDetails.displayName);
         }, function(error) {
-            dialogsModule.alert({
-                message: 'Cannot get current user!',
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert('Cannot get current user!');
         });
 
     loadList();

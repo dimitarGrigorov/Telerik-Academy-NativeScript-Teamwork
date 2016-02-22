@@ -1,18 +1,10 @@
 var view = require('ui/core/view');
-var dialogsModule = require('ui/dialogs');
 var frameModule = require('ui/frame');
 var utils = require('../../../shared/utils');
 var cinemaService = require('../../../shared/services/cinema-service');
 
 var page;
 var pageData;
-
-function alert(message) {
-    dialogsModule.alert({
-        message: message,
-        okButtonText: 'OK'
-    });
-}
 
 function navigatedTo(args) {
     page = args.object;
@@ -25,27 +17,27 @@ function submitCinema(args) {
     var keywords = utils.getKeywords(page.getViewById('keywords').text);
     
     if (name == null || name === ''){
-        alert('Name is required!');
+        utils.dialogueAlert('Name is required!');
         return;
     }
 
     if (location == null || location === ''){
-        alert('Location is required!');
+        utils.dialogueAlert('Location is required!');
         return;
     }
 
     if (imageUrl == null || imageUrl === ''){
-        alert('Image URL is required!');
+        utils.dialogueAlert('Image URL is required!');
         return;
     }
 
     if (!utils.validateUrl(imageUrl)){
-        alert('Please enter valid image URL!');
+        utils.dialogueAlert('Please enter valid image URL!');
         return;
     }
 
     if (!keywords.length) {
-        alert('You should specify at least 1 keyword!');
+        utils.dialogueAlert('You should specify at least 1 keyword!');
         return;
     }
 
@@ -59,17 +51,12 @@ function submitCinema(args) {
     cinemaService
         .addCinema(cinema)
         .then(function(response) {
-            dialogsModule.alert({
-                message: 'You have successfully added a new cinema!',
-                okButtonText: 'OK'
-            }).then(function() {
-                frameModule.topmost().navigate('views/cinema/list/list');
-            });
+            utils.dialogueAlert('You have successfully added a new cinema!')
+                .then(function() {
+                    frameModule.topmost().navigate('views/cinema/list/list');
+                });
         }, function(error) {
-            dialogsModule.alert({
-                message: 'An error occured while trying to add a new cinema. Please try again!',
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert('An error occured while trying to add a new cinema. Please try again!');
         });
 }
 

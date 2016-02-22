@@ -1,6 +1,6 @@
-var dialogsModule = require('ui/dialogs');
 var frameModule = require('ui/frame');
 var viewModule = require('ui/core/view');
+var utils = require('../../shared/utils');
 var UserViewModel = require('../../shared/view-models/user-view-model');
 var user = new UserViewModel();
 var everlive = require('../../shared/everlive');
@@ -27,10 +27,7 @@ function signIn() {
                 frameModule.topmost().navigate(navigationEntry);
             });
         }, function(error) {
-            dialogsModule.alert({
-                message: error.message,
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert(error.message);
         });
 }
 

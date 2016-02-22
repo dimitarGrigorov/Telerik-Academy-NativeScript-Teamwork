@@ -3,7 +3,7 @@ var CommentViewModel = require('../../../shared/view-models/comment-view-model')
 var CommentSectionViewModel = require('../../../shared/view-models/comment-section-view-model');
 var commentService = require('../../../shared/services/comment-service');
 var userService = require('../../../shared/services/user-service');
-var dialogsModule = require('ui/dialogs');
+var utils = require('../../../shared/utils');
 var Toast = require('nativescript-toast');
 var socialShare = require('nativescript-social-share');
 var _ = require('lodash');
@@ -72,10 +72,7 @@ function deleteComment(commentId, userId) {
             loadComments();
             Toast.makeText('You have successfully deleted your comment!', 'long').show();
         }, function (error) {
-            dialogsModule.alert({
-                message: error.message,
-                okButtonText: 'OK'
-            });
+            utils.dialogueAlert(error.message);
         });
 }
 
@@ -96,7 +93,7 @@ function longPress(args) {
                         actions.pop();
                     }
 
-                    dialogsModule.action({
+                    utils.dialogueAction({
                         message: 'Select an action',
                         cancelButtonText: 'Do nothing...',
                         actions: actions

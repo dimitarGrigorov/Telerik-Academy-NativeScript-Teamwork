@@ -1,4 +1,3 @@
-var dialogsModule = require('ui/dialogs');
 var frameModule = require('ui/frame');
 var view = require('ui/core/view');
 var ImageModule = require('ui/image');
