@@ -18,7 +18,9 @@ var showCinemaFilter = appSettings.getBoolean('showCinemaFilter', false);
 var cinemaCollection = [];
 var pageData = new Observable();
 pageData.set('cinemaList', cinemaCollection);
+pageData.set('cinemasCount', 0);
 pageData.set('showCinemaFilter', showCinemaFilter);
+pageData.set('username', '');
 
 // Pagination
 
@@ -43,6 +45,7 @@ function loadList() {
         .getCinemaList({ offset: offset, limit: limit, keyword: name })
         .then(function(response) {
             totalItems = response.count;
+            pageData.set('cinemasCount', totalItems);
 
             if (totalItems == 0) {
                 Toast.makeText('No cinemas found!', 'long').show();

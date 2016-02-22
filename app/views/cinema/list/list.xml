@@ -3,7 +3,7 @@
         <ActionBar>
             <ActionBar.titleView>
                 <GridLayout columns="3*,1*,1*">
-                    <Label class="page-title" col="0" text="Cinemas" minWidth="100" />
+                    <Label class="page-title" col="0" text="{{ 'Cinemas (' + cinemasCount + ')' }}" minWidth="100" />
                     <Label class="user-name" col="1" textWrap="true" text="{{ 'Welcome ' + username }}" />
                     <Image doubleTap="showFilter" col="2" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" />
                 </GridLayout>
