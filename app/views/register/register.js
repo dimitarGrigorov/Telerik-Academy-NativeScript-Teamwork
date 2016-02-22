@@ -9,7 +9,7 @@ var user = new UserViewModel();
 function loaded(args) {
     var page = args.object;
     page.bindingContext = user;
-};
+}
 
 function register() {
     user.register()
@@ -28,7 +28,7 @@ function register() {
                 okButtonText: 'OK'
             });
         });
-};
+}
 
 function takeProfilePicture() {
     cameraModule

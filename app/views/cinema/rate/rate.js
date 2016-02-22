@@ -62,7 +62,7 @@ function addRating(didRateBefore) {
                 message: error.message,
                 okButtonText: 'OK'
             });
-        })
+        });
 }
 
 exports.onNavigatedTo = onNavigatedTo;

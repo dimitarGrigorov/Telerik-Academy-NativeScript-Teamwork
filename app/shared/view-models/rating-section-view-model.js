@@ -13,7 +13,7 @@ function RatingSectionViewModel(data) {
 
     viewModel.getRatingValue = function () {
         return this.items[this.selectedIndex];
-    }
+    };
 
     return viewModel;
 }

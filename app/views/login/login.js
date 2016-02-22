@@ -9,7 +9,7 @@ var page;
 function loaded(args) {
     page = args.object;
     page.bindingContext = user;
-};
+}
 
 function signIn() {
     var navigationEntry = {
@@ -26,12 +26,12 @@ function signIn() {
                 okButtonText: 'OK'
             });
         });
-};
+}
 
 function register() {
     var topmost = frameModule.topmost();
     topmost.navigate('views/register/register');
-};
+}
 
 exports.loaded = loaded;
 exports.signIn = signIn;

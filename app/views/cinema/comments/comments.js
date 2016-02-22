@@ -24,7 +24,7 @@ function loadComments() {
         .then(function (responseData) {
             var comments = _.map(responseData, function (comment) {
                 return new CommentViewModel(comment);
-            })
+            });
 
             pageData.set('comments', _.reverse(comments));
         }, function (error) {
@@ -49,7 +49,7 @@ function submitComment() {
 
     // hide keyboard
     view.getViewById(page, 'comment-to-add').dismissSoftInput();
-    pageData.set('commentToSubmit', '')
+    pageData.set('commentToSubmit', '');
 }
 
 exports.onNavigatedTo = onNavigatedTo;

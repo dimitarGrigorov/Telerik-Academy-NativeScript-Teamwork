@@ -48,7 +48,7 @@ function getCinemaList(filter) {
 
     var query = new Everlive.Query();
     query.expand(expandExp);
-    if (keyword != '') {
+    if (keyword !== '') {
         query.where().all('Keywords', [keyword]);
     }
     query.orderDesc('CreatedAt')

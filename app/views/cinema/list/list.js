@@ -54,7 +54,7 @@ function loadList() {
                 duration: 1000
             });
         }, function(error) {
-            console.log(JSON.stringify(error))
+            console.log(JSON.stringify(error));
             pageData.set('isLoading', false);
 
             dialogsModule.alert({
@@ -69,7 +69,7 @@ function navigatedTo(args) {
     page.bindingContext = pageData;
 
     loadList();
-};
+}
 
 // Cinema
 
@@ -87,17 +87,17 @@ function viewDetails(args) {
     };
 
     frameModule.topmost().navigate(navigationEntry);
-};
+}
 
 function addCinema(args) {
     frameModule.topmost().navigate('views/cinema/add-item/add-item');
-};
+}
 
 // Filter
 
 function filter(args) {
     loadList();
-};
+}
 
 function hideFilter(args) {
     var direction = args.direction;
@@ -124,7 +124,7 @@ function showFilter(args) {
 // Pagination
 
 function previousPage() {
-    if (pageNumber == 0) {
+    if (pageNumber === 0) {
         return;
     }
 
