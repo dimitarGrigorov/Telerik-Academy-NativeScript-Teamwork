@@ -1,23 +1,23 @@
-var dialogsModule = require("ui/dialogs");
-var frameModule = require("ui/frame");
-var viewModule = require("ui/core/view");
-var ImageModule = require("ui/image");
-var gestures = require("ui/gestures");
+var dialogsModule = require('ui/dialogs');
+var frameModule = require('ui/frame');
+var viewModule = require('ui/core/view');
+var ImageModule = require('ui/image');
+var gestures = require('ui/gestures');
 var Observable = require('data/observable').Observable;
-var cinemaService = require("../../../shared/services/cinema-service");
-var utils = require("../../../shared/utils");
-var Toast = require("nativescript-toast");
-var appSettings = require("application-settings");
+var cinemaService = require('../../../shared/services/cinema-service');
+var utils = require('../../../shared/utils');
+var Toast = require('nativescript-toast');
+var appSettings = require('application-settings');
 
 var page;
 
 // Cinema Data
 
-var showCinemaFilter = appSettings.getBoolean("showCinemaFilter", false);
+var showCinemaFilter = appSettings.getBoolean('showCinemaFilter', false);
 var cinemaCollection = [];
 var pageData = new Observable();
-pageData.set("cinemaList", cinemaCollection);
-pageData.set("showCinemaFilter", showCinemaFilter);
+pageData.set('cinemaList', cinemaCollection);
+pageData.set('showCinemaFilter', showCinemaFilter);
 
 // Pagination
 
@@ -31,12 +31,12 @@ var sortByRating = true;
 var sortByComments = true;
 
 function loadList() {
-    pageData.set("isLoading", true);
+    pageData.set('isLoading', true);
 
     var offset = pageNumber * pageSize;
     var limit = pageSize;
 
-    var name = page.getViewById("name").text;
+    var name = page.getViewById('name').text;
 
     cinemaService
         .getCinemaList({ offset: offset, limit: limit, keyword: name })
@@ -45,21 +45,21 @@ function loadList() {
 
             cinemaCollection = utils.getList(response.result);
 
-            pageData.set("cinemaList", cinemaCollection);
-            pageData.set("isLoading", false);
+            pageData.set('cinemaList', cinemaCollection);
+            pageData.set('isLoading', false);
 
-            var listView = page.getViewById("cinema-list");
+            var listView = page.getViewById('cinema-list');
             listView.animate({
                 opacity: 1,
                 duration: 1000
             });
         }, function(error) {
             console.log(JSON.stringify(error))
-            pageData.set("isLoading", false);
+            pageData.set('isLoading', false);
 
             dialogsModule.alert({
-                message: "An error occured while trying to get the cinema list!",
-                okButtonText: "OK"
+                message: 'An error occured while trying to get the cinema list!',
+                okButtonText: 'OK'
             });
         });
 }
@@ -79,7 +79,7 @@ function viewDetails(args) {
     var id = cinema.id;
 
     var navigationEntry = {
-        moduleName: "views/cinema/details/details",
+        moduleName: 'views/cinema/details/details',
         context: {
             cinemaId: id
         },
@@ -90,7 +90,7 @@ function viewDetails(args) {
 };
 
 function addCinema(args) {
-    frameModule.topmost().navigate("views/cinema/add-item/add-item");
+    frameModule.topmost().navigate('views/cinema/add-item/add-item');
 };
 
 // Filter
@@ -106,19 +106,19 @@ function hideFilter(args) {
         case 4:
         case 1:
         case 2:
-            pageData.set("showCinemaFilter", false);
-            appSettings.setBoolean("showCinemaFilter", false);
+            pageData.set('showCinemaFilter', false);
+            appSettings.setBoolean('showCinemaFilter', false);
 
-            Toast.makeText("Hint: Double tap on the search icon to show the cinema filter!", "long").show();
+            Toast.makeText('Hint: Double tap on the search icon to show the cinema filter!', 'long').show();
             break;
     }
 }
 
 function showFilter(args) {
-    pageData.set("showCinemaFilter", true);
-    appSettings.setBoolean("showCinemaFilter", true);
+    pageData.set('showCinemaFilter', true);
+    appSettings.setBoolean('showCinemaFilter', true);
 
-    Toast.makeText("Hint: Swipe on the cinema filter to hide it!!", "long").show();
+    Toast.makeText('Hint: Swipe on the cinema filter to hide it!!', 'long').show();
 }
 
 // Pagination

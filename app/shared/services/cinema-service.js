@@ -1,5 +1,5 @@
-var Everlive = require("../../libs/everlive.all.min");
-var everlive = require("../../shared/everlive");
+var Everlive = require('../../libs/everlive.all.min');
+var everlive = require('../../shared/everlive');
 var endpoint = 'Cinemas';
 
 function getById(id) {
@@ -42,13 +42,13 @@ function getCinemaList(filter) {
 
     var offset = filter.offset || 0;
     var limit = filter.limit || 5;
-    var keyword = filter.keyword || "";
+    var keyword = filter.keyword || '';
 
     var data = everlive.data(endpoint);
 
     var query = new Everlive.Query();
     query.expand(expandExp);
-    if (keyword != "") {
+    if (keyword != '') {
         query.where().all('Keywords', [keyword]);
     }
     query.orderDesc('CreatedAt')

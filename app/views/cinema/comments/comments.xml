@@ -2,17 +2,17 @@
     <Page.actionBar>
         <ActionBar title="Comment"></ActionBar>
     </Page.actionBar>
-	<GridLayout rows="auto, *" columns="*, *, *">
-		<TextView id="comment-to-add" text="{{ commentToSubmit }}" hint="Write a comment..." row="0" col="0" colSpan="2" />
-	    <Button class="btn btn-send" text="Submit" tap="submitComment" row="0" col="2" />
-	  	<ListView items="{{ comments }}" itemTap="onItemTap" row="2" col="0" colSpan="3">
-			<ListView.itemTemplate>
-				<GridLayout rows="auto, auto" columns="*, *">
-				    <Label class="sender" text="{{ $value.from }}" textWrap="true" row="0" col="0" />
-				    <Label class="timestamp" text="{{ $value.formattedDate }}" textWrap="true" row="0" col="1" />
-					<Label class="comment" text="{{ $value.text }}" textWrap="true" row="1" col="0" colSpan="2" />
-				</GridLayout>
-			</ListView.itemTemplate>
-		</ListView>
-	</GridLayout>
+    <GridLayout rows="auto, *" columns="*, *, *">
+        <TextView id="comment-to-add" text="{{ commentToSubmit }}" hint="Write a comment..." row="0" col="0" colSpan="2" />
+        <Button class="btn btn-send" text="Submit" tap="submitComment" row="0" col="2" />
+        <ListView items="{{ comments }}" itemTap="onItemTap" row="2" col="0" colSpan="3">
+            <ListView.itemTemplate>
+                <GridLayout rows="auto, auto" columns="*, *">
+                    <Label class="sender" text="{{ $value.from }}" textWrap="true" row="0" col="0" />
+                    <Label class="timestamp" text="{{ $value.formattedDate }}" textWrap="true" row="0" col="1" />
+                    <Label class="comment" text="{{ $value.text }}" textWrap="true" row="1" col="0" colSpan="2" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
 </Page>

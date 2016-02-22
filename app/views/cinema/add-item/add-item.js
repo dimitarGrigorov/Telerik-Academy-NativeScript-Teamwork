@@ -1,8 +1,7 @@
 var view = require('ui/core/view');
-var dialogsModule = require("ui/dialogs");
-var frameModule = require("ui/frame");
-var cinemaService = require("../../../shared/services/cinema-service");
-var uidialogs = require("ui/dialogs");
+var dialogsModule = require('ui/dialogs');
+var frameModule = require('ui/frame');
+var cinemaService = require('../../../shared/services/cinema-service');
 
 var page;
 var pageData;
@@ -21,11 +20,11 @@ function submitCinema(args) {
        alert('Name is required!');
        return;
    }
-   if(location === null || location ===''){
+   if(location === null || location === ''){
        alert('Location is required!');
        return;
    }
-   if(imageUrl === null || imageUrl ===''){
+   if(imageUrl === null || imageUrl === ''){
        alert('Image URL is required!');
        return;
    }
@@ -45,15 +44,15 @@ function submitCinema(args) {
         .addCinema(cinema)
         .then(function(response) {
             dialogsModule.alert({
-                message: "You have successfully added a new cinema!",
-                okButtonText: "OK"
+                message: 'You have successfully added a new cinema!',
+                okButtonText: 'OK'
             }).then(function() {
                 frameModule.topmost().navigate('views/cinema/list/list');
             });
         }, function(error) {
             dialogsModule.alert({
-                message: "An error occured while trying to add a new cinema. Please try again!",
-                okButtonText: "OK"
+                message: 'An error occured while trying to add a new cinema. Please try again!',
+                okButtonText: 'OK'
             });
         });
 }

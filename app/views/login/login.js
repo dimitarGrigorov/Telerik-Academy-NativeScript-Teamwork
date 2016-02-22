@@ -1,7 +1,7 @@
-var dialogsModule = require("ui/dialogs");
-var frameModule = require("ui/frame");
-var viewModule = require("ui/core/view");
-var UserViewModel = require("../../shared/view-models/user-view-model");
+var dialogsModule = require('ui/dialogs');
+var frameModule = require('ui/frame');
+var viewModule = require('ui/core/view');
+var UserViewModel = require('../../shared/view-models/user-view-model');
 var user = new UserViewModel();
 var everlive = require('../../shared/everlive');
 var page;
@@ -13,7 +13,7 @@ function loaded(args) {
 
 function signIn() {
     var navigationEntry = {
-        moduleName: "views/cinema/list/list",
+        moduleName: 'views/cinema/list/list',
         clearHistory: true
     };
 
@@ -23,14 +23,14 @@ function signIn() {
         }, function(error) {
             dialogsModule.alert({
                 message: error.message,
-                okButtonText: "OK"
+                okButtonText: 'OK'
             });
         });
 };
 
 function register() {
     var topmost = frameModule.topmost();
-    topmost.navigate("views/register/register");
+    topmost.navigate('views/register/register');
 };
 
 exports.loaded = loaded;

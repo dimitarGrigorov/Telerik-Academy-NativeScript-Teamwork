@@ -13,96 +13,96 @@ var page;
 var pageData = new Observable();
 
 function cinemaValidator(callback) {
-	var cinemaData = pageData.get('cinemaData');
+    var cinemaData = pageData.get('cinemaData');
 
-	if (!cinemaData || !callback) {
-		return;
-	}
+    if (!cinemaData || !callback) {
+        return;
+    }
 
-	callback(cinemaData);
+    callback(cinemaData);
 }
 
 function share() {
-	cinemaValidator(function (cinemaData) {
-		var string = 'Looking for a place to watch the new movie, that just came out ? Come to ' + 
-			cinemaData.name + ' at ' + cinemaData.location + '!';
+    cinemaValidator(function (cinemaData) {
+        var string = 'Looking for a place to watch the new movie, that just came out ? Come to ' + 
+            cinemaData.name + ' at ' + cinemaData.location + '!';
 
-		pageData.set('cinemaData', '');
-		socialShare.shareText(string);
-	});
+        pageData.set('cinemaData', '');
+        socialShare.shareText(string);
+    });
 }
 
 function rate() {
-	cinemaValidator(function (cinemaData) {
-	    var navigationEntry = {
-	        moduleName: 'views/cinema/rate/rate',
-	        context: {
-	            cinemaId: cinemaData.get('id')
-	        }
-	    };
+    cinemaValidator(function (cinemaData) {
+        var navigationEntry = {
+            moduleName: 'views/cinema/rate/rate',
+            context: {
+                cinemaId: cinemaData.get('id')
+            }
+        };
 
-	    frameModule.topmost().navigate(navigationEntry);
-	});
+        frameModule.topmost().navigate(navigationEntry);
+    });
 }
 
 function showCommentSection() {
-	cinemaValidator(function (cinemaData) {
-	    var navigationEntry = {
-	        moduleName: 'views/cinema/comments/comments',
-	        context: {
-	            cinemaId: cinemaData.get('id')
-	        }
-	    };
+    cinemaValidator(function (cinemaData) {
+        var navigationEntry = {
+            moduleName: 'views/cinema/comments/comments',
+            context: {
+                cinemaId: cinemaData.get('id')
+            }
+        };
 
-	    frameModule.topmost().navigate(navigationEntry);
-	});
+        frameModule.topmost().navigate(navigationEntry);
+    });
 }
 
 function calculateRating() {
-	cinemaValidator(function (cinemaData) {
-		ratingService.getAllByCinemaId(cinemaData.id)
-			.then(function (ratings) {
-				var sum = _.sumBy(ratings, 'value');
+    cinemaValidator(function (cinemaData) {
+        ratingService.getAllByCinemaId(cinemaData.id)
+            .then(function (ratings) {
+                var sum = _.sumBy(ratings, 'value');
 
-				setRatingClasses(ratings.length ? Math.round(sum / ratings.length) : 0);
-				pageData.set('isLoading', false);
-			}, function (error) {
-				console.log('Error in calculating rating: ' + error.message);
-				pageData.set('isLoading', false);
-			});
-	});
+                setRatingClasses(ratings.length ? Math.round(sum / ratings.length) : 0);
+                pageData.set('isLoading', false);
+            }, function (error) {
+                console.log('Error in calculating rating: ' + error.message);
+                pageData.set('isLoading', false);
+            });
+    });
 }
 
 function setRatingClasses(roundedRating) {
-	var itemCount = 5;
-	var defaultClass = 'rating-item';
-	var activeClass = 'rating-item-active';
+    var itemCount = 5;
+    var defaultClass = 'rating-item';
+    var activeClass = 'rating-item-active';
 
-	var newCollection = _.range(1, itemCount + 1).map(function (starRating) {
-		return starRating <= roundedRating ? (defaultClass + ' ' + activeClass) : defaultClass;
-	});
+    var newCollection = _.range(1, itemCount + 1).map(function (starRating) {
+        return starRating <= roundedRating ? (defaultClass + ' ' + activeClass) : defaultClass;
+    });
 
-	pageData.set('ratingClasses', newCollection);
+    pageData.set('ratingClasses', newCollection);
 }
 
 function onNavigatedTo(args) {
-	page = args.object;
-	pageData.set('isLoading', true);
+    page = args.object;
+    pageData.set('isLoading', true);
 
-	view.getViewById(page, 'header').animate({
+    view.getViewById(page, 'header').animate({
         opacity: 1,
         duration: 1000
     });
 
     cinemaService.getById(page.navigationContext.cinemaId)
-    	.then(function (response) {
-			pageData.set('cinemaData', new CinemaViewModel(response.result));
-			calculateRating();
-    	}, function (error) {
-    		console.log('Error in details view: ' + error.message);
-    	});
+        .then(function (response) {
+            pageData.set('cinemaData', new CinemaViewModel(response.result));
+            calculateRating();
+        }, function (error) {
+            console.log('Error in details view: ' + error.message);
+        });
 
-	page.bindingContext = pageData;
+    page.bindingContext = pageData;
 }
 
 exports.share = share;

@@ -1,5 +1,5 @@
-var config = require("../../shared/config");
-var observableModule = require("data/observable");
+var config = require('../../shared/config');
+var observableModule = require('data/observable');
 var everlive = require('../everlive');
 
 function UserViewModel(data) {
@@ -9,12 +9,12 @@ function UserViewModel(data) {
         username: data.username || 'johndoe',
         password: data.password || "password",
         name: 'John Doe',
-        email: data.email || "ns-testing@gmail.com"
+        email: data.email || 'ns-testing@gmail.com'
     });
 
     viewModel.login = function() {
-        var username = viewModel.get("username");
-        var password = viewModel.get("password");
+        var username = viewModel.get('username');
+        var password = viewModel.get('password');
 
         return everlive.authentication.login(username, password);
     };
@@ -25,8 +25,8 @@ function UserViewModel(data) {
     };
 
     viewModel.register = function() {
-        var username = viewModel.get("username");
-        var password = viewModel.get("password");
+        var username = viewModel.get('username');
+        var password = viewModel.get('password');
         var name = viewModel.get('name');
         var email = viewModel.get('email');
 

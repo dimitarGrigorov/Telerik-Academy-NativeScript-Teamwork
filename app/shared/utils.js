@@ -7,12 +7,12 @@ function getList(result) {
         var averageRating = 0;
         var commentsCount = 0;
 
-        if (item["CinemaRatings"][0] != undefined) {
-            averageRating = Math.round(item["CinemaRatings"][0].Average);
+        if (item['CinemaRatings'][0] != undefined) {
+            averageRating = Math.round(item['CinemaRatings'][0].Average);
         }
 
-        if (item["CinemaComments"][0] != undefined) {
-            commentsCount = item["CinemaComments"][0].Count;
+        if (item['CinemaComments'][0] != undefined) {
+            commentsCount = item['CinemaComments'][0].Count;
         }
 
         var data = {
