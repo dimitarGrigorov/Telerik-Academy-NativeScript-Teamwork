@@ -4,6 +4,7 @@ var RatingSectionViewModel = require('../../../shared/view-models/rating-section
 var userService = require('../../../shared/services/user-service');
 var ratingService = require('../../../shared/services/rating-service');
 var utils = require('../../../shared/utils');
+
 var page;
 var pageData;
 var neverDidRateBeforeMessage = 'Thank you for your feedback!';
@@ -21,7 +22,10 @@ function onNavigatedTo(args) {
         .then(function(response) {
             pageData.averageRating = utils.getAverageRating(response);
         }, function(error) {
-            console.log(JSON.stringify(error));
+            dialogsModule.alert({
+                message: 'Cannot get cinema ratings!',
+                okButtonText: 'OK'
+            });
         });
 }
 
