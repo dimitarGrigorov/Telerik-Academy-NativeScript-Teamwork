@@ -20,8 +20,11 @@ function UserViewModel(data) {
     };
 
     viewModel.addProfilePicture = function(image) {
-        var data = everlive.data('ProfilePicture');
-        return data.create({ 'ProfilePicture': image });
+        return everlive.files.create({
+            "Filename": "asd.png",
+            "ContentType": "image/png",
+            "base64": image
+        });
     };
 
     viewModel.register = function() {

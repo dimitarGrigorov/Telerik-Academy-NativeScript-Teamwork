@@ -7,7 +7,6 @@
         <TextField text="{{ password }}" secure="true" hint="Password" />
         <TextField text="{{ name }}" hint="Name" />
         <TextField text="{{ email }}" id="email" hint="Email Address" keyboardType="email" />
-        <Button class="btn app-btn" text="Take Profile Picture" tap="takeProfilePicture" />
         <Button class="btn app-btn" text="Sign Up" tap="register" />
     </StackLayout>
 </Page>
