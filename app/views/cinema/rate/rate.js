@@ -33,8 +33,8 @@ function submitRating(rating) {
     var userId;
     var cinemaId = pageData.get('cinemaId');
 
-    userService.getCurrent().then(function (userData) { // get current user's information
-        userId = userData.id;
+    userService.getCurrent().then(function (userDetails) { // get current user's information
+        userId = userDetails.id;
         return ratingService.getByUserAndCinemaId(userId, cinemaId);
     }).then(function (ratings) { // destroy current user's rating, if such is present
         if (ratings.length) {

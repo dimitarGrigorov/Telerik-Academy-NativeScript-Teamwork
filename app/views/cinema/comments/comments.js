@@ -41,9 +41,9 @@ function submitComment() {
 
     if (text.length) {
         userService.getCurrent()
-            .then(function (userData) {
+            .then(function (userDetails) {
                 commentService.create({
-                    from: userData.username,
+                    from: userDetails.username,
                     text: text,
                     cinemaId: cinemaId
                 }).then(function () {
@@ -87,8 +87,8 @@ function longPress(args) {
     var userId;
 
     userService.getCurrent()
-        .then(function (userData) {
-            userId = userData.id;
+        .then(function (userDetails) {
+            userId = userDetails.id;
 
             return commentService.getByCommentAndUserId(commentId, userId)
                 .then(function (data) {
