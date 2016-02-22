@@ -55,7 +55,6 @@ function addRating(didRateBefore) {
         clearHistory: true
     };
 
-    // Formatting of data should happen in rating service
     ratingService.create({
         value: pageData.getRatingValue(),
         cinemaId: pageData.get('cinemaId')

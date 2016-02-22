@@ -27,7 +27,6 @@ function share() {
         var string = 'Looking for a place to watch the new movie, that just came out ? Come to ' + 
             cinemaData.name + ' at ' + cinemaData.location + '!';
 
-        pageData.set('cinemaData', '');
         socialShare.shareText(string);
     });
 }
@@ -46,7 +45,7 @@ function rate() {
 }
 
 function swipe(args) {
-    if (args.direction === 1) { // left swipe
+    if (args.direction === 1) { // swipe from left to right
         frameModule.topmost().navigate('views/cinema/list/list');
     }
 }

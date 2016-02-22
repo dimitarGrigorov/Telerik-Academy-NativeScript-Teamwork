@@ -36,11 +36,9 @@ function validateUrl(url) {
 }
 
 function getAverageRating(ratings) {
-    var sum = _.reduce(ratings, function(sum, item) {
-        return sum + item.value;
-    }, 0);
+    var sum = _.sumBy(ratings, 'value');
 
-    return (ratings.length === 0 ? 1 : sum / ratings.length);
+    return (ratings.length === 0 ? 0 : sum / ratings.length);
 }
 
 function getKeywords(keywordString) {

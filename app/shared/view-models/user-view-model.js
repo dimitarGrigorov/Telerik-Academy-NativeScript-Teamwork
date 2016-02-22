@@ -6,10 +6,10 @@ function UserViewModel(data) {
     data = data || {};
 
     var viewModel = new observableModule.Observable({
-        username: data.username || 'johndoe',
-        password: data.password || "password",
-        name: 'John Doe',
-        email: data.email || 'ns-testing@gmail.com'
+        username: data.username || 'demo',
+        password: data.password || 'pass',
+        name: 'Demo',
+        email: data.email || 'cinema-advisor@gmail.com'
     });
 
     viewModel.login = function() {

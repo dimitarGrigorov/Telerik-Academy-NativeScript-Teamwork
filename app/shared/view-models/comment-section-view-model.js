@@ -4,7 +4,7 @@ function CommentSectionViewModel(data) {
 	data = data || {};
 
 	var viewModel = new observableModule.Observable({
-		cinemaId: data.cinemaId || 1,
+		cinemaId: data.cinemaId || null,
 		comments: data.comments || [],
 		commentToSubmit: data.commentToSubmit || ''
 	});

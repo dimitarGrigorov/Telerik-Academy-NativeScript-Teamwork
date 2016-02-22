@@ -24,17 +24,17 @@ function submitCinema(args) {
     var imageUrl = page.getViewById('image-url').text;
     var keywords = utils.getKeywords(page.getViewById('keywords').text);
     
-    if (name === null || name === ''){
+    if (name == null || name === ''){
         alert('Name is required!');
         return;
     }
 
-    if (location === null || location === ''){
+    if (location == null || location === ''){
         alert('Location is required!');
         return;
     }
 
-    if (imageUrl === null || imageUrl === ''){
+    if (imageUrl == null || imageUrl === ''){
         alert('Image URL is required!');
         return;
     }

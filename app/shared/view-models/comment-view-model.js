@@ -5,8 +5,8 @@ function CommentViewModel(data) {
 	data = data || {};
 
 	var viewModel = new observableModule.Observable({
-        id: data.id || '',
-        cinemaId: data.cinemaId || '',
+        id: data.id || null,
+        cinemaId: data.cinemaId || null,
 		from: data.from || '',
 		text: data.text || '',
 		formattedDate: moment(data.createdAt).fromNow()
