@@ -2,7 +2,7 @@
     <Page.actionBar>
         <ActionBar title="Sign in"></ActionBar>
     </Page.actionBar>
-    <GridLayout rows="1*,1*,4*,1*" columns="1*,1*" orientation="vertical" id="grid">
+    <GridLayout rows="1*,1*,4*,1*" columns="1*,1*" orientation="vertical">
         <TextField row="0" colspan="2" text="{{ username }}" hint="Username" />
         <TextField row="1" colspan="2" secure="true" text="{{ password }}" hint="Password" />
 		<Image stretch="aspectFit" row="2" colspan="2" src="~/images/login-icon.png" />
