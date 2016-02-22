@@ -36,7 +36,7 @@ function loadList() {
     var offset = pageNumber * pageSize;
     var limit = pageSize;
 
-    var name = page.getViewById('name').text;
+    var name = page.getViewById('name').text.toLowerCase();
 
     cinemaService
         .getCinemaList({ offset: offset, limit: limit, keyword: name })
