@@ -13,7 +13,7 @@ module.exports = function(grunt) {
             build: {
                 src: ['<%= project.app %>/**/*.js', '!<%= project.app %>/libs/**/*.js']
             }
-        },
+        }
     });
 
     require('load-grunt-tasks')(grunt);

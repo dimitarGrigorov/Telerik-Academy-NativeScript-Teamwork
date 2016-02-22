@@ -1,4 +1,4 @@
-<Page loaded="onLoaded" navigatedTo="onNavigatedTo">
+<Page loaded="onLoaded" navigatedTo="onNavigatedTo" swipe="swipe">
     <Page.actionBar>
         <ActionBar title="Details"></ActionBar>
     </Page.actionBar>

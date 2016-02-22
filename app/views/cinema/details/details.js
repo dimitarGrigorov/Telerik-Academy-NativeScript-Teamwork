@@ -45,6 +45,12 @@ function rate() {
     });
 }
 
+function swipe(args) {
+    if (args.direction === 1) { // left swipe
+        frameModule.topmost().navigate('views/cinema/list/list');
+    }
+}
+
 function showCommentSection() {
     cinemaValidator(function (cinemaData) {
         var navigationEntry = {
@@ -94,7 +100,8 @@ function onNavigatedTo(args) {
         duration: 1000
     });
 
-    cinemaService.getById(page.navigationContext.cinemaId)
+    cinemaService.getById('ef7d64b0-d958-11e5-972d-bd7c1aebb850')
+    // cinemaService.getById(page.navigationContext.cinemaId)
         .then(function (response) {
             pageData.set('cinemaData', new CinemaViewModel(response.result));
             calculateRating();
@@ -107,5 +114,6 @@ function onNavigatedTo(args) {
 
 exports.share = share;
 exports.rate = rate;
+exports.swipe = swipe;
 exports.showCommentSection = showCommentSection;
 exports.onNavigatedTo = onNavigatedTo;
