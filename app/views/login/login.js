@@ -1,5 +1,5 @@
 var dialogsModule = require('ui/dialogs');
-var imageModule = require("ui/image");
+var imageModule = require('ui/image');
 var frameModule = require('ui/frame');
 var viewModule = require('ui/core/view');
 var UserViewModel = require('../../shared/view-models/user-view-model');
@@ -8,16 +8,13 @@ var everlive = require('../../shared/everlive');
 var page;
 
 function loaded(args) {
-    if (frameModule.topmost().ios) {
-        frameModule.topmost().ios.navBarVisibility = "never";
-    }
-
+    
     var item = new imageModule.Image();
 
-    item.src = "res://icon";
+    item.src = 'res://icon';
     item.height = 150;
 
-    item.on("loaded", function (args) {
+    item.on('loaded', function (args) {
 
         args.object
             .animate({
@@ -38,7 +35,7 @@ function loaded(args) {
             })
             .then(function () {
                 frameModule.topmost().navigate({
-                    moduleName: "views/login/login",
+                    moduleName: 'views/login/login',
                     animated: false
                 });
             });
@@ -47,7 +44,7 @@ function loaded(args) {
     page = args.object;
     page.bindingContext = user;
  
-    var grid = page.getViewById("grid");
+    var grid = page.getViewById('grid');
     grid.addChild(item);
 };
 
