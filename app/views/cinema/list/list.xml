@@ -4,13 +4,13 @@
             <ActionBar.titleView>
                 <GridLayout columns="3*,1*">
                     <Label class="page-title" col="0" text="Cinemas" minWidth="100" />
-                    <Image doubleTap="showCinemaFilter" col="1" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" />
+                    <Image doubleTap="showFilter" col="1" visibility="{{ showCinemaFilter ? 'collapse' : 'visible' }}" src="~/images/search.png" width="32" height="32" />
                 </GridLayout>
             </ActionBar.titleView>
         </ActionBar>
     </Page.actionBar>
     <GridLayout rows="auto,5*,auto" columns="1*,2*,1*">
-        <GridLayout swipe="hideCinemaFilter" visibility="{{ showCinemaFilter ? 'visible' : 'collapse' }}" class="grid-filter" row="0" col="0" colspan="3" rows="auto" columns="1*,2*,1*">
+        <GridLayout swipe="hideFilter" visibility="{{ showCinemaFilter ? 'visible' : 'collapse' }}" class="grid-filter" row="0" col="0" colspan="3" rows="auto" columns="1*,2*,1*">
             <Label row="0" col="0" text="Name" horizontalAlignment="right" verticalAlignment="center" />
             <TextField id="name" text="" row="0" col="1" />
             <Button class="btn" text="Filter" tap="filter" row="0" col="2" />

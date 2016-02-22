@@ -15,7 +15,10 @@ function register() {
     user.register()
         .then(function() {
             dialogsModule
-                .alert("Your account was successfully created.")
+                .alert({
+                    message: "Your account was successfully created.",
+                    okButtonText: "OK"
+                })
                 .then(function() {
                     frameModule.topmost().navigate("views/login/login");
                 });

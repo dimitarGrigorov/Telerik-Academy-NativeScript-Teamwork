@@ -64,7 +64,7 @@ function loadList() {
         });
 }
 
-exports.navigatedTo = function(args) {
+function navigatedTo(args) {
     page = args.object;
     page.bindingContext = pageData;
 
@@ -73,7 +73,7 @@ exports.navigatedTo = function(args) {
 
 // Cinema
 
-exports.viewDetails = function(args) {
+function viewDetails(args) {
     var cinema = cinemaCollection[args.index];
 
     var id = cinema.id;
@@ -89,17 +89,17 @@ exports.viewDetails = function(args) {
     frameModule.topmost().navigate(navigationEntry);
 };
 
-exports.addCinema = function(args) {
+function addCinema(args) {
     frameModule.topmost().navigate("views/cinema/add-item/add-item");
 };
 
 // Filter
 
-exports.filter = function(args) {
+function filter(args) {
     loadList();
 };
 
-exports.hideCinemaFilter = function(args) {
+function hideFilter(args) {
     var direction = args.direction;
 
     switch (direction) {
@@ -114,7 +114,7 @@ exports.hideCinemaFilter = function(args) {
     }
 }
 
-exports.showCinemaFilter = function(args) {
+function showFilter(args) {
     pageData.set("showCinemaFilter", true);
     appSettings.setBoolean("showCinemaFilter", true);
 
@@ -123,7 +123,7 @@ exports.showCinemaFilter = function(args) {
 
 // Pagination
 
-exports.previousPage = function() {
+function previousPage() {
     if (pageNumber == 0) {
         return;
     }
@@ -133,7 +133,7 @@ exports.previousPage = function() {
     loadList();
 }
 
-exports.nextPage = function() {
+function nextPage() {
     if ((pageNumber + 1) * pageSize >= totalItems) {
         return;
     }
@@ -142,3 +142,12 @@ exports.nextPage = function() {
 
     loadList();
 }
+
+exports.navigatedTo = navigatedTo;
+exports.viewDetails = viewDetails;
+exports.addCinema = addCinema;
+exports.filter = filter;
+exports.hideFilter = hideFilter;
+exports.showFilter = showFilter;
+exports.previousPage = previousPage;
+exports.nextPage = nextPage;

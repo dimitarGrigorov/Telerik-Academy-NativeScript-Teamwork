@@ -50,7 +50,10 @@ function addRating(didRateBefore) {
 		cinemaId: pageData.get('cinemaId')
 	}).then(function (response) {
 	        dialogsModule
-	            .alert(didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage)
+	            .alert({
+	            	message: didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage,
+	            	okButtonText: 'OK'
+	            })
 	            .then(function() {
 	                frameModule.topmost().navigate(navigationEntry);
 	            });
