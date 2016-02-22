@@ -35,13 +35,21 @@ function validateUrl(url) {
     return urlregex.test(url);
 }
 
+function getAverageRating(ratings) {
+    var sum = _.reduce(ratings, function(sum, item) {
+        return sum + item.value;
+    }, 0);
+
+    return (ratings.length === 0 ? 1 : sum / ratings.length);
+}
+
 function getKeywords(keywordString) {
     return keywordString.toLowerCase()
         .split(',')
-        .map(function (keyword) {
+        .map(function(keyword) {
             return keyword.trim();
         })
-        .filter(function (keyword) {
+        .filter(function(keyword) {
             return keyword;
         });
 }
@@ -49,3 +57,4 @@ function getKeywords(keywordString) {
 exports.getList = getList;
 exports.validateUrl = validateUrl;
 exports.getKeywords = getKeywords;
+exports.getAverageRating = getAverageRating;

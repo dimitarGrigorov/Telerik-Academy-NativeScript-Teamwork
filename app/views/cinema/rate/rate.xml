@@ -1,6 +1,12 @@
 <Page loaded="onLoaded" navigatedTo="onNavigatedTo">
     <Page.actionBar>
-        <ActionBar title="Rate"></ActionBar>
+        <ActionBar title="Rate">
+        	<GridLayout columns="1*,auto">
+                <Label col="0" horizontalAlignment="left" verticalAlignment="center" text="Rate" />
+                <Image col="1" horizontalAlignment="center" verticalAlignment="center" width="48" src="~/images/rating.png" />
+                <Label col="1" horizontalAlignment="center" verticalAlignment="center" text="{{ averageRating }}" />
+            </GridLayout>
+        </ActionBar>
     </Page.actionBar>
 	<DockLayout stretchLastChild="true">
 		<Button class="app-btn" text="Submit rating" tap="submitRating" dock="bottom" />

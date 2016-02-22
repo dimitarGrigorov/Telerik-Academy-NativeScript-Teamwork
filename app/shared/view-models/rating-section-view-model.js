@@ -8,7 +8,8 @@ function RatingSectionViewModel(data) {
     var viewModel = new observableModule.Observable({
         items: data.items || defaultRateValues,
         selectedIndex: data.selectedIndex || defaultSelectedIndex,
-        cinemaId: data.cinemaId || ''
+        cinemaId: data.cinemaId || '',
+        averageRating: data.averageRating || 0
     });
 
     viewModel.getRatingValue = function () {

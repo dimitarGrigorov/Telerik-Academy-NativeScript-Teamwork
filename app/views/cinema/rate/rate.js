@@ -3,7 +3,7 @@ var frameModule = require('ui/frame');
 var RatingSectionViewModel = require('../../../shared/view-models/rating-section-view-model');
 var userService = require('../../../shared/services/user-service');
 var ratingService = require('../../../shared/services/rating-service');
-
+var utils = require('../../../shared/utils');
 var page;
 var pageData;
 var neverDidRateBeforeMessage = 'Thank you for your feedback!';
@@ -16,16 +16,23 @@ function onNavigatedTo(args) {
     });
 
     page.bindingContext = pageData;
+
+    ratingService.getAllByCinemaId(pageData.cinemaId)
+        .then(function(response) {
+            pageData.averageRating = utils.getAverageRating(response);
+        }, function(error) {
+            console.log(JSON.stringify(error));
+        });
 }
 
 function submitRating(rating) {
     var userId;
     var cinemaId = pageData.get('cinemaId');
 
-    userService.getCurrent().then(function (userData) { // get current user's information
+    userService.getCurrent().then(function(userData) { // get current user's information
         userId = userData.id;
         return ratingService.getByUserAndCinemaId(userId, cinemaId);
-    }).then(function (ratings) { // destroy current user's rating, if such is present
+    }).then(function(ratings) { // destroy current user's rating, if such is present
         if (ratings.length) {
             return ratingService.destroyByUserAndCinemaId(userId, cinemaId)
                 .then(addRating.bind(this, true));
@@ -48,21 +55,21 @@ function addRating(didRateBefore) {
     ratingService.create({
         value: pageData.getRatingValue(),
         cinemaId: pageData.get('cinemaId')
-    }).then(function (response) {
-            dialogsModule
-                .alert({
-                    message: didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage,
-                    okButtonText: 'OK'
-                })
-                .then(function() {
-                    frameModule.topmost().navigate(navigationEntry);
-                });
-        }, function(error) {
-            dialogsModule.alert({
-                message: error.message,
+    }).then(function(response) {
+        dialogsModule
+            .alert({
+                message: didRateBefore ? didRateBeforeMessage : neverDidRateBeforeMessage,
                 okButtonText: 'OK'
+            })
+            .then(function() {
+                frameModule.topmost().navigate(navigationEntry);
             });
+    }, function(error) {
+        dialogsModule.alert({
+            message: error.message,
+            okButtonText: 'OK'
         });
+    });
 }
 
 exports.onNavigatedTo = onNavigatedTo;
