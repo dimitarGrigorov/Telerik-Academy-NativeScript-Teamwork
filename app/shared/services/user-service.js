@@ -6,7 +6,7 @@ function getCurrent() {
             var result = response.result;
 
             if (!result) {
-                return {};
+                throw new Error('Log in first...');
             }
 
             return {
