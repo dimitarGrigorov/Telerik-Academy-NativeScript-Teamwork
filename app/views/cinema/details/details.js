@@ -100,8 +100,7 @@ function onNavigatedTo(args) {
         duration: 1000
     });
 
-    cinemaService.getById('ef7d64b0-d958-11e5-972d-bd7c1aebb850')
-    // cinemaService.getById(page.navigationContext.cinemaId)
+    cinemaService.getById(page.navigationContext.cinemaId)
         .then(function (response) {
             pageData.set('cinemaData', new CinemaViewModel(response.result));
             calculateRating();
