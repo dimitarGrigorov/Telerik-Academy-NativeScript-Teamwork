@@ -23,13 +23,13 @@ function navigatedTo(args) {
 }
 
 function loadComments() {
-    commentService.getAllByCinemaId(pageData.get('cinemaId'))
+    commentService.getSortedByCinemaId(pageData.get('cinemaId'))
         .then(function (responseData) {
             var comments = _.map(responseData, function (comment) {
                 return new CommentViewModel(comment);
             });
 
-            pageData.set('comments', _.reverse(comments));
+            pageData.set('comments', comments);
         }, function (error) {
             console.log('Error in comments view: ' + error.message);
         });

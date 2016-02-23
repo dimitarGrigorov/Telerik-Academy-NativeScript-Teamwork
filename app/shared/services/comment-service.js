@@ -20,11 +20,14 @@ function format(data, query) {
         });
 }
 
-function getAllByCinemaId(cinemaId) {
+function getSortedByCinemaId(cinemaId) {
     var data = everlive.data(endpoint);
     var query = new Everlive.Query();
 
-    query.where().equal('CinemaId', cinemaId);
+    query
+        .orderDesc('CreatedAt')
+        .where()
+        .equal('CinemaId', cinemaId);
 
     return format(data, query);
 }
@@ -56,7 +59,7 @@ function create(data) {
     });
 }
 
-exports.getAllByCinemaId = getAllByCinemaId;
+exports.getSortedByCinemaId = getSortedByCinemaId;
 exports.getByCommentAndUserId = getByCommentAndUserId;
 exports.destroyByCommentAndUserId = destroyByCommentAndUserId;
 exports.create = create;
