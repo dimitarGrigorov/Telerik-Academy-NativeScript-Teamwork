@@ -27,7 +27,6 @@ function navigatedTo(args) {
                     if (response.result.length) {
                         pageData.set('imageUri', response.result[0].Uri);
                     }
-
                 }, function(error) {
                     utils.dialogueAlert(error.message);
                 });

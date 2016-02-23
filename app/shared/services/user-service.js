@@ -24,7 +24,6 @@ function getCurrent() {
 function getProfilePicture(userId) {
     var data = everlive.data(filesEndpoint);
     var query = new Everlive.Query();
-    var userData;
 
     query.where().equal('CreatedBy', userId);
 
