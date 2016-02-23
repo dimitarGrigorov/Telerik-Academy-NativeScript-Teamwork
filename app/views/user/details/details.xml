@@ -1,0 +1,7 @@
+<Page loaded="loaded" navigatedTo="navigatedTo">
+    <GridLayout rows="70, 70, *" columns="*">
+        <Label text="{{ 'Username: ' + username }}" textWrap="true" row="0" col="0" />
+        <Label text="{{ 'Created at: ' + createdAt }}" textWrap="true" row="1" col="1" />
+        <Image src="{{ imageUri }}" horizontalAlignment="center" verticalAlignment="center" row="2" col="2" />
+    </GridLayout>
+</Page>

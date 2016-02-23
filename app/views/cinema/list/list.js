@@ -155,6 +155,10 @@ function nextPage() {
     loadList();
 }
 
+function showUserDetails() {
+    frameModule.topmost().navigate('views/user/details/details');
+}
+
 exports.navigatedTo = navigatedTo;
 exports.viewDetails = viewDetails;
 exports.addCinema = addCinema;
@@ -163,3 +167,4 @@ exports.hideFilter = hideFilter;
 exports.showFilter = showFilter;
 exports.previousPage = previousPage;
 exports.nextPage = nextPage;
+exports.showUserDetails = showUserDetails;
