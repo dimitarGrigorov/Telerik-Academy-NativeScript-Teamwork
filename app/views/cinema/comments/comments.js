@@ -11,7 +11,7 @@ var _ = require('lodash');
 var page;
 var pageData;
 
-function onNavigatedTo(args) {
+function navigatedTo(args) {
     page = args.object;
 
     pageData = new CommentSectionViewModel({
@@ -110,6 +110,6 @@ function longPress(args) {
         });
 }
 
-exports.onNavigatedTo = onNavigatedTo;
+exports.navigatedTo = navigatedTo;
 exports.submitComment = submitComment;
 exports.longPress = longPress;

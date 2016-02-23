@@ -1,4 +1,4 @@
-<Page loaded="onLoaded" navigatedTo="onNavigatedTo">
+<Page loaded="loaded" navigatedTo="navigatedTo">
     <Page.actionBar>
         <ActionBar title="Comment">
             <GridLayout columns="1*,auto">

@@ -89,7 +89,7 @@ function setRatingClasses(roundedRating) {
     pageData.set('ratingClasses', newCollection);
 }
 
-function onNavigatedTo(args) {
+function navigatedTo(args) {
     page = args.object;
     pageData.set('isLoading', true);
 
@@ -113,4 +113,4 @@ exports.share = share;
 exports.rate = rate;
 exports.swipe = swipe;
 exports.showCommentSection = showCommentSection;
-exports.onNavigatedTo = onNavigatedTo;
+exports.navigatedTo = navigatedTo;

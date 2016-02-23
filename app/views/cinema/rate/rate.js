@@ -9,7 +9,7 @@ var pageData;
 var neverDidRateBeforeMessage = 'Thank you for your feedback!';
 var didRateBeforeMessage = 'You have rated this cinema before. You will change your previous vote!';
 
-function onNavigatedTo(args) {
+function navigatedTo(args) {
     page = args.object;
     pageData = new RatingSectionViewModel({
         cinemaId: page.navigationContext.cinemaId
@@ -64,5 +64,5 @@ function addRating(didRateBefore) {
     });
 }
 
-exports.onNavigatedTo = onNavigatedTo;
+exports.navigatedTo = navigatedTo;
 exports.submitRating = submitRating;
