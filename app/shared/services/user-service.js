@@ -4,7 +4,7 @@ var filesEndpoint = 'Files';
 
 function getCurrent() {
     return everlive.Users.currentUser()
-        .then(function (response) {
+        .then(function(response) {
             var result = response.result;
 
             if (!result) {
@@ -21,26 +21,14 @@ function getCurrent() {
         });
 }
 
-function getProfilePicture() {
+function getProfilePicture(userId) {
     var data = everlive.data(filesEndpoint);
     var query = new Everlive.Query();
     var userData;
 
-    return getCurrent()
-        .then(function (userDetails) {
-            userData = userDetails;
-            query.where().equal('CreatedBy', userDetails.id);
-            
-            return data.get(query);
-        })
-        .then(function (response) { // return first match
-            if (response.result.length) {
-                return {
-                    uri: response.result[0].Uri,
-                    userDetails: userData
-                };
-            }
-        });
+    query.where().equal('CreatedBy', userId);
+
+    return data.get(query);
 }
 
 exports.getCurrent = getCurrent;

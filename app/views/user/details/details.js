@@ -14,16 +14,26 @@ function navigatedTo(args) {
         createdAt: ''
     });
 
-    userService.getProfilePicture()
-        .then(function (image) {
-            pageData.set('imageUri', image.uri);
-            pageData.set('username', image.userDetails.username);
-            pageData.set('createdAt', moment(image.userDetails.createdAt).format('Do MMMM YYYY, h:mm:ss a'));
-        }, function (error) {
-            utils.dialogueAlert(error.message);
-        });
-
     page.bindingContext = pageData;
+
+    userService.getCurrent()
+        .then(function(userDetails) {
+            pageData.set('username', userDetails.displayName);
+            pageData.set('createdAt', moment(userDetails.createdAt).format('Do MMMM YYYY, h:mm:ss a'));
+
+            userService.getProfilePicture(userDetails.id)
+                .then(function(response) {
+                    console.log(JSON.stringify(response));
+                    if (response.result.length) {
+                        pageData.set('imageUri', response.result[0].Uri);
+                    }
+
+                }, function(error) {
+                    utils.dialogueAlert(error.message);
+                });
+        }, function(error) {
+            utils.dialogueAlert('Cannot get current user!');
+        });
 }
 
 exports.navigatedTo = navigatedTo;
